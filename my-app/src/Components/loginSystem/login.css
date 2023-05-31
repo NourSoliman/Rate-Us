@@ -1,0 +1,44 @@
+/* .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+} */
+.true-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+.verifiedPic {
+    width: 250px;
+    height: 250px;
+}
+.login {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    background-color: darkseagreen;
+    /* width: 100px; */
+    padding: 7px;
+    color: white;
+    font-family: sans-serif;
+}
+.register{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    padding: 7px;
+    color: white;
+    font-family: sans-serif;
+}
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
