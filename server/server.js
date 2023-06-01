@@ -15,16 +15,16 @@ require("dotenv").config();
 
 
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  }));
-  //Method for render.com
 // app.use(cors({
-//     origin: 'https://rateus.onrender.com',
+//     origin: 'http://localhost:3000',
 //     credentials: true,
 //   }));
-//   app.use(cookieParser());
+  //Method for render.com
+app.use(cors({
+    origin: 'https://rateus.onrender.com',
+    credentials: true,
+  }));
+  app.use(cookieParser());
 
   // app.use((req, res, next) => {
   //   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
