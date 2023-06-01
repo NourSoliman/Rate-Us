@@ -77,7 +77,7 @@ async function register(req, res, next) {
                                     from: `Rate Website`,
                                     to: email,
                                     subject: `Email Verification`,
-                                    html: `<p>Please click on the following link to verify your email: <a href="http://localhost:1997/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
+                                    html: `<p>Please click on the following link to verify your email: <a href="https://rate-us.onrender.com/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
 
                                 }
                                 transporter.sendMail(mailOptions, (error, info) => {

@@ -23,7 +23,13 @@ export const fetchStore = (storeId) => {
     return async (dispatch) => {
       try {
         const token = getBearerToken()
-        const storeResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}`,{
+        // const storeResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}`,{
+        //   headers:{
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // });
+        //Render.com
+        const storeResponse = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}`,{
           headers:{
             Authorization: `Bearer ${token}`
           }
