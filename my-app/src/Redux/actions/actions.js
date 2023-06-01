@@ -16,7 +16,15 @@ const getBearerToken = () => {
 export const register = (userData) => {
     return async (dispatch) => {
         try {
-            const response = await fetch("http://localhost:1997/api/register", {
+            // const response = await fetch("http://localhost:1997/api/register", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(userData)
+            // })
+            //Render.com
+            const response = await fetch("https://rate-us.onrender.com/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -50,7 +58,17 @@ export const register = (userData) => {
 export const LoginAction = (userData) => {
     return async (dispatch) => {
         try {
-            const response = await fetch('http://localhost:1997/api/login', {
+            // const response = await fetch('http://localhost:1997/api/login', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'credentials': 'include',
+
+            //     },
+            //     body: JSON.stringify(userData)
+            // })
+            //RENDER
+            const response = await fetch('https://rate-us.onrender.com/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,8 +126,15 @@ export const userData = (userName) => {
         const loggedIn = getState().user.loggedIn;
         if (loggedIn) {
             try {
+                // const token = getBearerToken()
+                // const response = await fetch(`http://localhost:1997/api/getUser/${userName}`, {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`
+                //     }
+                // })
+                //RENDER
                 const token = getBearerToken()
-                const response = await fetch(`http://localhost:1997/api/getUser/${userName}`, {
+                const response = await fetch(`https://rate-us.onrender.com/api/getUser/${userName}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -137,7 +162,20 @@ export const ChangePassword = (oldPassword, newPassword, userName, confirmPasswo
     return async (dispatch) => {
         dispatch({ type: CHANGE_PASSWORD_REQUEST })
         try {
-            const response = await fetch(`http://localhost:1997/api/changePassword/${userName}`, {
+            // const response = await fetch(`http://localhost:1997/api/changePassword/${userName}`, {
+            //     method: `PUT`,
+            //     headers: {
+            //         'Content-Type': `application/json`,
+            //     },
+            //     body: JSON.stringify({
+            //         confirmPassword,
+            //         oldPassword,
+            //         newPassword
+            //     })
+            // })
+            //RENDER
+            
+            const response = await fetch(`https://rate-us.onrender.com/api/changePassword/${userName}`, {
                 method: `PUT`,
                 headers: {
                     'Content-Type': `application/json`,
@@ -171,7 +209,7 @@ export const addStore = (formData) => {
     return async (dispatch) => {
         dispatch({ type: ADD_STORE_REQUEST });
         try {
-            const response = await fetch('http://localhost:1997/api/stores', {
+            const response = await fetch('https://rate-us.onrender.com/api/stores', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
