@@ -1,6 +1,5 @@
 const express = require(`express`)
 const router = express.Router();
-
 const registerEmail = require(`../../Controllers/nodemailer`)
 const {auth } = require(`../../middleware/auth`)
 const multer = require('multer');

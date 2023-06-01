@@ -15,8 +15,12 @@ require("dotenv").config();
 
 
 
+// app.use(cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true,
+//   }));
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://rateus.onrender.com',
     credentials: true,
   }));
   app.use(cookieParser());
