@@ -8,7 +8,9 @@ import {
     UPDATE_COMMENT_STATUS_FAIL,
     UPDATE_COMMENT_STATUS_SUCCESS,
     FETCH_STORES_FAIL,
-    FETCH_STORES_SUCCESS
+    FETCH_STORES_SUCCESS,
+    FETCH_USER_COMMENT_SUCCESS,
+    FETCH_USER_COMMENT_FAIL,
 } from './types'
 const inistialState={
     store:null,
@@ -75,6 +77,18 @@ const storeReducer = (state = inistialState , action) =>{
                     stores: [],
                     error: action.payload,
                     };
+                case FETCH_USER_COMMENT_SUCCESS:
+                    return {
+                        ...state,
+                        comments:action.payload,
+                        error:null,
+                    }
+                case FETCH_USER_COMMENT_FAIL:
+                    return {
+                        ...state,
+                        comments:[],
+                        error:action.payload
+                    }
         default:
             return state
     }

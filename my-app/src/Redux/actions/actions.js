@@ -209,6 +209,17 @@ export const addStore = (formData) => {
     return async (dispatch) => {
         dispatch({ type: ADD_STORE_REQUEST });
         try {
+            // const response = await fetch('http://localhost:1997/api/stores', {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Accept": "application/json"
+            //     },
+            //     body: JSON.stringify({
+            //         formData
+            //     })
+            // });
+            // //render
             const response = await fetch('https://rate-us.onrender.com/api/stores', {
                 method: 'POST',
                 headers: {

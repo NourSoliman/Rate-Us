@@ -11,7 +11,9 @@ import {
     UPDATE_COMMENT_STATUS_FAIL,
     UPDATE_COMMENT_STATUS_SUCCESS,
     FETCH_STORES_SUCCESS,
-    FETCH_STORES_FAIL
+    FETCH_STORES_FAIL,
+    FETCH_USER_COMMENT_FAIL,
+    FETCH_USER_COMMENT_SUCCESS
 } from './types'
 
 //Get the token from cookies
@@ -207,3 +209,30 @@ export const fetchAllStores = () => {
     }
   };
 };
+export const fetchUserComments = () => {
+  return async (dispatch) => {
+    try {
+      const token = getBearerToken()
+      // const response = await axios.get('http://localhost:1997/api/userComments',{
+      //   headers:{
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // });
+      const response = await axios.get('https://rate-us.onrender.com/api/userComments',{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
+      dispatch({
+        type: FETCH_USER_COMMENT_SUCCESS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: FETCH_USER_COMMENT_FAIL,
+        payload: error.message,
+      });
+    }
+  };
+}

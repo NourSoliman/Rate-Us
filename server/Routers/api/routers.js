@@ -25,7 +25,7 @@ router.get(`/getUser/:userName` , auth, authController.getUser)
 router.get(`/stores/:storeId` , auth ,storeController.getStores)
 router.get('/stores/:storeId/comments', auth, storeController.getComments);
 router.get(`/allStores` , auth , storeController.getAllStores)
-
+router.get(`/userComments`, auth , storeController.fetchAllUserComments)
 router.get(`/logout`, authController.logout)
 router.get(`/verify-email`,authController.verifyEmail)
 router.get(`/createResetSession`,authController.createResetSession)

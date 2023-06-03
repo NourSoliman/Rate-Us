@@ -216,7 +216,9 @@ async function verifyEmail(req, res) {
         user.verified = true;
         await user.save()
         // return res.status(200).send({ success: true });
-        res.redirect(`http://localhost:3000/#/verify-email/${token}`)
+        // res.redirect(`http://localhost:3000/#/verify-email/${token}`)
+        //Render
+        res.redirect(`https://rateus.onrender.com/#/verify-email/${token}`)
     } catch (error) {
         console.log(error);
         // return res.status(400).send({ error: `Invailed or Expired Token` })

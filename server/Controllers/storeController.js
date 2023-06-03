@@ -63,8 +63,6 @@ const addedRoute = async(req, res) => {
     }
 }
 
-
-
 // Route to handle individual store pages
 const getStores = async(req, res) =>{
     try{
@@ -201,7 +199,15 @@ const fetchCommentsFromDatabase = async (storeId) => {
       res.status(500).json({ error: 'Server error' });
     }
   };
-  
+  const fetchAllUserComments = async(req , res) => {
+    try{ 
+      const userId = req.user.userId
+      const comments = await Comment.find({commenter:userId}).populate(`store`)
+      res.json(comments)
+    }catch(error){
+      res.status(500).json({error:`Internal Server Error`})
+    }
+  }
 module.exports = {
     updateRoute,
     addedRoute,
@@ -210,4 +216,5 @@ module.exports = {
     getComments,
     commentIdApi,
     getAllStores,
+    fetchAllUserComments,
 }

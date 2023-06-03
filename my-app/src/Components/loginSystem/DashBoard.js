@@ -1,12 +1,11 @@
 import React , {useState, useEffect} from 'react'
 import {useDispatch , useSelector} from 'react-redux'
-import {userData} from '../../Redux/actions/actions'
 import Home from '../Home/Home'
-import ChangePasswordForm from './ChangePassword'
 import Male from '../Images/Male.png'
 import Female from '../Images/Female.png'
 import { Spinner } from 'react-bootstrap';
 import { GET_USER_SUCCESS } from '../../Redux/actions/types'
+import { fetchUserComments } from '../../Redux/storesRedux/storeAction'
 import { NavLink } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 const DashBoard = () => {
@@ -14,6 +13,7 @@ const DashBoard = () => {
     const{userName} = useParams();
     // const userName = useSelector((state) => state.user.userName)
     const user = useSelector((state) => state.user.user);
+    const comments = useSelector((state) => state.store.comments) || [];
     const [loading ,setLoading] = useState(true)
     console.log(userName)
     // useEffect(()=>{
@@ -36,8 +36,9 @@ const DashBoard = () => {
             });
           }
         }
+        dispatch(fetchUserComments());
       }, [dispatch, userName]);
-
+      console.log(comments ,` from dashBoard`)
     const renderGenderPicture = () =>{
         if(user && user.gender === `female`){
             return <img src={Female} alt="female" className="img-fluid"></img>
@@ -78,6 +79,16 @@ const DashBoard = () => {
             {renderGenderPicture()}
           </div>
         </div>
+      )}
+            <h2>Comments</h2>
+      {comments && comments.length > 0 ? (
+        <ul>
+          {comments.map((comment) => (
+            <li key={comment.id}>{comment.commentText} on Store <NavLink to={`/stores/${comment.store._id}`}>{comment.store.name}</NavLink></li>
+          ))}
+        </ul>
+      ) : (
+        <p>No comments yet.</p>
       )}
     </div>
   )

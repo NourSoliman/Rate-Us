@@ -54,7 +54,7 @@ const AddingStoreToDB = () => {
         <Spinner animation='border' role='status'>
           <span className='sr-only'></span>
         </Spinner>
-        <h2>Getting User Data</h2>
+        <h2>Loading...</h2>
       </div>
     );
   }
