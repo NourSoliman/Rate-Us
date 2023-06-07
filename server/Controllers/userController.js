@@ -58,51 +58,49 @@ async function register(req, res, next) {
                             email,
                             confirmPassword: hashedPassword,
                             gender,
-                            profile
+                            profile,
+                            role: `user`
                         })
                         const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
                             expiresIn: '24h',
                         });
-                        user.save()
-                            .then(result => {
-                                // res.status(201).send({msg:`User Created SuccessFully, You will receive an email soon!`})
-                                const transporter = nodemailer.createTransport({
-                                    service: 'gmail',
-                                    auth: {
-                                        user: process.env.EMAIL,
-                                        pass: process.env.PASSWORD
-                                    },
-                                });
-                                const mailOptions = {
-                                    from: `Rate Website`,
-                                    to: email,
-                                    subject: `Email Verification`,
-                                    html: `<p>Please click on the following link to verify your email: <a href="https://rate-us.onrender.com/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
-
-                                }
-                                transporter.sendMail(mailOptions, (error, info) => {
-                                    if (error) {
-                                        console.log(`error sending verification email`, error)
-                                    } else {
-                                        console.log('Verification email sent:', info.response);
-                                    }
-                                })
-                                res.status(201).send({
-                                    msg: 'User Created Successfully, You will receive an email for verification',
-                                });
-                                next()
-                            })
-                            .catch(error => console.log(error))
-                    }).catch(error => {
-                        return res.status(500).send({
-                            error: `User Created Failed`
-                        })
-
+                user.save()
+                .then(result => {
+                // res.status(201).send({msg:`User Created SuccessFully, You will receive an email soon!`})
+                const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+                },
+                });
+                const mailOptions = {
+                from: `Rate Website`,
+                to: email,
+                subject: `Email Verification`,
+                html: `<p>Please click on the following link to verify your email: <a href="https://rate-us.onrender.com/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
+                }
+                transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                console.log(`error sending verification email`, error)
+                } else {
+                console.log('Verification email sent:', info.response);
+                }
                     })
+                res.status(201).send({
+                msg: 'User Created Successfully, You will receive an email for verification',
+                });
+                next()
+                })
+                .catch(error => console.log(error))
+                }).catch(error => {
+                return res.status(500).send({
+                error: `User Created Failed`
+                })
+            })
             })
             .catch(error => {
                 return res.status(500).send(error);
-
             })
     } catch (error) {
         return res.status(500).send(error)
@@ -129,6 +127,8 @@ async function login(req, res) {
             {
                 userId: user._id,
                 userName: user.userName,
+                role:user.role,
+                email:user.email
             },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
@@ -147,7 +147,8 @@ async function login(req, res) {
             creationDate: user.creationDate,
             email: user.email,
             verified: user.verified,
-            gender: user.gender
+            gender: user.gender,
+            role:user.role
         });
     } catch (error) {
         return res.status(500).send({ error: error.message });
@@ -179,7 +180,8 @@ async function getUser(req, res) {
         if (!user) return res.status(500).send({ error: `Cannot find User` })
         //Remove password and confirmPassword from the data of User
         const { password, confirmPassword, ...rest } = Object.assign({}, user.toJSON())
-        return res.status(201).send(rest)
+        // const { password, confirmPassword, ...userData } = Object.assign({}, user.toJSON())
+        return res.status(201).send(...rest)
     } catch (error) {
         return res.status(404).send({ error: `Couldn't find User Data` })
         // console.log(error)
@@ -216,9 +218,9 @@ async function verifyEmail(req, res) {
         user.verified = true;
         await user.save()
         // return res.status(200).send({ success: true });
-        // res.redirect(`http://localhost:3000/#/verify-email/${token}`)
+        res.redirect(`http://localhost:3000/#/verify-email/${token}`)
         //Render
-        res.redirect(`https://rateus.onrender.com/#/verify-email/${token}`)
+        // res.redirect(`https://rateus.onrender.com/#/verify-email/${token}`)
     } catch (error) {
         console.log(error);
         // return res.status(400).send({ error: `Invailed or Expired Token` })

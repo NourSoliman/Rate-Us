@@ -12,9 +12,9 @@ function VerifyEmailPage() {
   useEffect(()=>{
     const verifyEmailUrl = async () => {
       try {
-        // const url = `http://localhost:1997/api/verify-email?token=${token}`
+        const url = `http://localhost:1997/api/verify-email?token=${token}`
         //Render
-        const url = `https://rate-us.onrender.com/api/verify-email?token=${token}`
+        // const url = `https://rate-us.onrender.com/api/verify-email?token=${token}`
         const {data} = await axios.get(url)
         console.log(data)
         setVerificationStatus(true)

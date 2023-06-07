@@ -1,4 +1,6 @@
 import Cookies from "js-cookie";
+import jwt_decode from 'jwt-decode';
+
 import {
     REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS,
     LOGIN_FAIL, LOGOUT_SUCCESS, GET_USER_SUCCESS, GET_USER_FAIL,
@@ -16,21 +18,21 @@ const getBearerToken = () => {
 export const register = (userData) => {
     return async (dispatch) => {
         try {
-            // const response = await fetch("http://localhost:1997/api/register", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(userData)
-            // })
-            //Render.com
-            const response = await fetch("https://rate-us.onrender.com/api/register", {
+            const response = await fetch("http://localhost:1997/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData)
             })
+            //Render.com
+            // const response = await fetch("https://rate-us.onrender.com/api/register", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(userData)
+            // })
             if (response.ok) {
                 const data = await response.json()
                 dispatch({
@@ -58,17 +60,7 @@ export const register = (userData) => {
 export const LoginAction = (userData) => {
     return async (dispatch) => {
         try {
-            // const response = await fetch('http://localhost:1997/api/login', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'credentials': 'include',
-
-            //     },
-            //     body: JSON.stringify(userData)
-            // })
-            //RENDER
-            const response = await fetch('https://rate-us.onrender.com/api/login', {
+            const response = await fetch('http://localhost:1997/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,19 +69,30 @@ export const LoginAction = (userData) => {
                 },
                 body: JSON.stringify(userData)
             })
+            //RENDER
+            // const response = await fetch('https://rate-us.onrender.com/api/login', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'credentials': 'include',
+
+            //     },
+            //     body: JSON.stringify(userData)
+            // })
             if (response.ok) {
                 const data = await response.json()
-                const { userName, token, creationDate, email, verified, gender } = data
+                const { userName, token, creationDate, email, verified, gender , role } = data
                 // return data
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: {
                         userName,
                         token,
-                        msg: data.msg
+                        msg: data.msg,
+                        role:role,
                     }
                 })
-                localStorage.setItem('userData', JSON.stringify({ userName, creationDate, email, verified, gender }));
+                localStorage.setItem('userData', JSON.stringify({ userName, creationDate,  verified, gender  }));
                 return data
             } else {
                 const errorData = await response.json();
@@ -126,26 +129,26 @@ export const userData = (userName) => {
         const loggedIn = getState().user.loggedIn;
         if (loggedIn) {
             try {
-                // const token = getBearerToken()
-                // const response = await fetch(`http://localhost:1997/api/getUser/${userName}`, {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`
-                //     }
-                // })
-                //RENDER
                 const token = getBearerToken()
-                const response = await fetch(`https://rate-us.onrender.com/api/getUser/${userName}`, {
+                const response = await fetch(`http://localhost:1997/api/getUser/${userName}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
+                //RENDER
+                // const token = getBearerToken()
+                // const response = await fetch(`https://rate-us.onrender.com/api/getUser/${userName}`, {
+                //     headers: {
+                //         Authorization: `Bearer ${token}`
+                //     }
+                // })
                 if (!response.ok) {
                     throw new Error(`This userName does not exist in our database!`)
                 }
-                const user = await response.json();
+                const userData = await response.json();
                 dispatch({
                     type: GET_USER_SUCCESS,
-                    payload: user,
+                    payload: response,
                 })
             } catch (error) {
                 console.log(error)
@@ -162,20 +165,7 @@ export const ChangePassword = (oldPassword, newPassword, userName, confirmPasswo
     return async (dispatch) => {
         dispatch({ type: CHANGE_PASSWORD_REQUEST })
         try {
-            // const response = await fetch(`http://localhost:1997/api/changePassword/${userName}`, {
-            //     method: `PUT`,
-            //     headers: {
-            //         'Content-Type': `application/json`,
-            //     },
-            //     body: JSON.stringify({
-            //         confirmPassword,
-            //         oldPassword,
-            //         newPassword
-            //     })
-            // })
-            //RENDER
-            
-            const response = await fetch(`https://rate-us.onrender.com/api/changePassword/${userName}`, {
+            const response = await fetch(`http://localhost:1997/api/changePassword/${userName}`, {
                 method: `PUT`,
                 headers: {
                     'Content-Type': `application/json`,
@@ -186,6 +176,19 @@ export const ChangePassword = (oldPassword, newPassword, userName, confirmPasswo
                     newPassword
                 })
             })
+            //RENDER
+            
+            // const response = await fetch(`https://rate-us.onrender.com/api/changePassword/${userName}`, {
+            //     method: `PUT`,
+            //     headers: {
+            //         'Content-Type': `application/json`,
+            //     },
+            //     body: JSON.stringify({
+            //         confirmPassword,
+            //         oldPassword,
+            //         newPassword
+            //     })
+            // })
             const data = await response.json()
             if (response.ok) {
                 console.log(`itsokay`);
@@ -209,18 +212,7 @@ export const addStore = (formData) => {
     return async (dispatch) => {
         dispatch({ type: ADD_STORE_REQUEST });
         try {
-            // const response = await fetch('http://localhost:1997/api/stores', {
-            //     method: 'POST',
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         "Accept": "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //         formData
-            //     })
-            // });
-            // //render
-            const response = await fetch('https://rate-us.onrender.com/api/stores', {
+            const response = await fetch('http://localhost:1997/api/stores', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -230,6 +222,17 @@ export const addStore = (formData) => {
                     formData
                 })
             });
+            // //render
+            // const response = await fetch('https://rate-us.onrender.com/api/stores', {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //         "Accept": "application/json"
+            //     },
+            //     body: JSON.stringify({
+            //         formData
+            //     })
+            // });
             const data = await response.json();
             console.log(data);
             if (response.ok) {

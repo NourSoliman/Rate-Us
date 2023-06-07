@@ -10,7 +10,7 @@ const AddingStoreToDB = () => {
   const [picture, setPicture] = useState(" "); // State to store the uploaded picture file
 
   const dispatch = useDispatch();
-  const { loading, msg, error } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.user);
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -75,7 +75,7 @@ const AddingStoreToDB = () => {
         <label>
           Images: <input accept="images/*" type="file" onChange={handlePicture}></input>
         </label>
-        {picture == "" || picture == null?" " :<img width={100} height={100} src={picture}/>}
+        {picture === "" || picture === null?" " :<img width={100} height={100} src={picture} alt="storePicture"/>}
         </div>
         
         <button type='submit'>Submit</button>

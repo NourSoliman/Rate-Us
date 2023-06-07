@@ -4,10 +4,14 @@ import Home from '../Home/Home'
 import Male from '../Images/Male.png'
 import Female from '../Images/Female.png'
 import { Spinner } from 'react-bootstrap';
-import { GET_USER_SUCCESS } from '../../Redux/actions/types'
+import { GET_USER_SUCCESS  , GET_USER_FAIL} from '../../Redux/actions/types'
 import { fetchUserComments } from '../../Redux/storesRedux/storeAction'
 import { NavLink } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
+import { userData } from '../../Redux/actions/actions'
+import jwt_decode from 'jwt-decode'
+import Cookies from 'js-cookie'
+
 const DashBoard = () => {
     const dispatch = useDispatch()
     const{userName} = useParams();
@@ -16,6 +20,7 @@ const DashBoard = () => {
     const comments = useSelector((state) => state.store.comments) || [];
     const [loading ,setLoading] = useState(true)
     console.log(userName)
+    //OLD
     // useEffect(()=>{
     //     if(userName){
     //         dispatch(userData(userName)).then(()=>{
@@ -23,6 +28,7 @@ const DashBoard = () => {
     //         })
     //     }
     // },[dispatch,userName])
+
     useEffect(() => {
         const userData = localStorage.getItem('userData');
         if (userData) {
@@ -38,6 +44,10 @@ const DashBoard = () => {
         }
         dispatch(fetchUserComments());
       }, [dispatch, userName]);
+      const token = Cookies.get(`token`)
+      const decodedToken = jwt_decode(token);
+      const role = decodedToken.role;
+      const email = decodedToken.email
       console.log(comments ,` from dashBoard`)
     const renderGenderPicture = () =>{
         if(user && user.gender === `female`){
@@ -70,8 +80,9 @@ const DashBoard = () => {
             <p className="card-text">
               {user.verified ? 'Verified User' : 'Not Verified User'}
             </p>
+            <p>Your Role : {role}</p>
             <p className="card-text">Username: {user.userName}</p>
-            <p className="card-text">Email: {user.email}</p>
+            <p className="card-text">Email: {email}</p>
             <p className='card-text'>Password:*****<NavLink to={`/changePassword/${userName}`}>Change Password</NavLink></p>
             <p className="card-text">
               Creation Date: {formatDate(user.creationDate)}

@@ -7,6 +7,9 @@ const commentSchema = new mongoose.Schema({
     ref: `User`,
     required: true,
   },
+  commentedAt:{
+    type:Date,
+  },
   commentText: {
     type: String,
     required: true,
@@ -22,6 +25,10 @@ const commentSchema = new mongoose.Schema({
     default: 'Recommended',
   },
   solvedCase: {
+    type: Boolean,
+    default: false,
+  },
+  edited: {
     type: Boolean,
     default: false,
   },

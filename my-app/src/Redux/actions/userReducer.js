@@ -1,3 +1,5 @@
+import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 import { REGISTER_SUCCESS, REGISTER_FAIL
     , LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT_SUCCESS 
     , GET_USER_FAIL , GET_USER_SUCCESS
@@ -8,6 +10,10 @@ import { REGISTER_SUCCESS, REGISTER_FAIL
     ADD_STORE_FAIL,
 } from './types';
     const storedUserName = localStorage.getItem('userName');
+    // const storedRole = localStorage.getItem('role');
+    // const token = Cookies.get('token');
+    // const decodedToken = jwt_decode(token)
+    // const storedRole = decodedToken.role
 const inistialState={
     user:null,
     msg:null,
@@ -20,6 +26,7 @@ const inistialState={
     passwordLoading:false,
     passwordError:null,
     stores:[],
+
 }
 const userReducer = (state = inistialState , action) =>{
     switch(action.type){
@@ -39,6 +46,9 @@ const userReducer = (state = inistialState , action) =>{
             };
         case LOGIN_SUCCESS:
             localStorage.setItem('userName', action.payload.userName);
+            // const decodedToken = jwt_decode(action.payload.token);
+            // const role = decodedToken.role;
+            // console.log(role , `from redux`)
             return {
                 ...state,
                 user:action.payload.user,
@@ -46,6 +56,7 @@ const userReducer = (state = inistialState , action) =>{
                 token:action.payload.token,
                 userName:action.payload.userName,
                 error:null,
+
                 loggedIn:true,
             };
         case LOGIN_FAIL:
@@ -65,6 +76,7 @@ const userReducer = (state = inistialState , action) =>{
                 error:null,
                 token:null,
                 msg:action.payload,
+                role:``,
                 loggedIn:false
             }
         case GET_USER_SUCCESS:

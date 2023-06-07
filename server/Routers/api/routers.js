@@ -31,8 +31,15 @@ router.get(`/verify-email`,authController.verifyEmail)
 router.get(`/createResetSession`,authController.createResetSession)
 
 // //PUT METHODS
+//update User
 router.put(`/updateUser`, auth ,authController.updateUser)
+//Change Password
 router.put(`/changePassword/:userName` , authController.changePassword)
+//Update Store Id
 router.put(`/stores/update/:storeId`,storeController.updateRoute )
+//add comment
 router.put(`/stores/:storeId/comment/:commentId` , storeController.commentIdApi)
+router.put(`/stores/comments/:commentId` , auth, storeController.editComment)
+//DeleteRouter
+router.delete(`/stores/comments/:commentId` , auth , storeController.deleteComment)
 module.exports = router

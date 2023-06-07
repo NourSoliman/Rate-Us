@@ -13,7 +13,11 @@ import {
     FETCH_STORES_SUCCESS,
     FETCH_STORES_FAIL,
     FETCH_USER_COMMENT_FAIL,
-    FETCH_USER_COMMENT_SUCCESS
+    FETCH_USER_COMMENT_SUCCESS,
+    FETCH_EDITED_COMMENTS_FAIL,
+    FETCH_EDITED_COMMENTS_SUCCESS,
+    FETCH_DELETE_COMMENTS_FAIL,
+    FETCH_DELETE_COMMENTS_SUCCESS,
 } from './types'
 
 //Get the token from cookies
@@ -25,33 +29,33 @@ export const fetchStore = (storeId) => {
     return async (dispatch) => {
       try {
         const token = getBearerToken()
-        // const storeResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}`,{
-        //   headers:{
-        //     Authorization: `Bearer ${token}`
-        //   }
-        // });
-        //Render.com
-        const storeResponse = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}`,{
+        const storeResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}`,{
           headers:{
             Authorization: `Bearer ${token}`
           }
         });
+        //Render.com
+        // const storeResponse = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}`,{
+        //   headers:{
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // });
         dispatch({
           type: FETCH_STORE_SUCCESS,
           payload: storeResponse.data.store
         });
   
-        // const commentsResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`,{
-        //   headers:{
-        //     Authorization: `Bearer ${token}`
-        //   }
-        // });
-        //RENDER
-        const commentsResponse = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}/comments`,{
+        const commentsResponse = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`,{
           headers:{
             Authorization: `Bearer ${token}`
           }
         });
+        //RENDER
+        // const commentsResponse = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}/comments`,{
+        //   headers:{
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // });
         console.log(`commentsResponse` , commentsResponse);
         dispatch({
           type: FETCH_COMMENTS_SUCCESS,
@@ -77,27 +81,27 @@ export const addComment = (storeId, newComment) =>{
           const decodedToken = jwtDecode(token)
           const userName = decodedToken.userName
           newComment.commenter = userName
-        // await axios.post(`http://localhost:1997/api/stores/${storeId}/comments`, newComment , {
-        //   headers:{
-        //     Authorization: `Bearer ${token}`
-        //   }
-        // })
-        // const response = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`,{
-        //   header:{
-        //     Authorization: `Bearer ${token}`
-        //   }
-        // })
-        //RENDER
-        await axios.post(`https://rate-us.onrender.com/api/stores/${storeId}/comments`, newComment , {
+        await axios.post(`http://localhost:1997/api/stores/${storeId}/comments`, newComment , {
           headers:{
             Authorization: `Bearer ${token}`
           }
         })
-        const response = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}/comments`,{
+        const response = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`,{
           header:{
             Authorization: `Bearer ${token}`
           }
         })
+        //RENDER
+        // await axios.post(`https://rate-us.onrender.com/api/stores/${storeId}/comments`, newComment , {
+        //   headers:{
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // })
+        // const response = await axios.get(`https://rate-us.onrender.com/api/stores/${storeId}/comments`,{
+        //   header:{
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // })
         dispatch({
             type:ADD_COMMENT_SUCCESS,
             payload:response.data.comments
@@ -116,16 +120,7 @@ export const updateCommentStatus = (storeId , commentId, newStatus) =>{
       console.log('Before dispatching updateCommentStatus');
     
     const token = getBearerToken()
-    // await axios.put(`http://localhost:1997/api/stores/${storeId}/comment/${commentId}`,{
-    //   status:newStatus
-    // },
-    // {
-    //   headers:{
-    //     Authorization:`Bearer ${token}`
-    //   }
-    // })
-    //RENDER
-    await axios.put(`https://rate-us.onrender.com/api/stores/${storeId}/comment/${commentId}`,{
+    await axios.put(`http://localhost:1997/api/stores/${storeId}/comment/${commentId}`,{
       status:newStatus
     },
     {
@@ -133,6 +128,15 @@ export const updateCommentStatus = (storeId , commentId, newStatus) =>{
         Authorization:`Bearer ${token}`
       }
     })
+    //RENDER
+    // await axios.put(`https://rate-us.onrender.com/api/stores/${storeId}/comment/${commentId}`,{
+    //   status:newStatus
+    // },
+    // {
+    //   headers:{
+    //     Authorization:`Bearer ${token}`
+    //   }
+    // })
     dispatch({
       type:UPDATE_COMMENT_STATUS_SUCCESS,
       payload:{
@@ -157,16 +161,17 @@ export const fetchStores = () =>{
   return async (dispatch)=>{
       try{
         const token = getBearerToken()
-      // const response = await fetch('http://localhost:1997/api/stores',{
-      //   headers:{
-      //     Authorization: `Bearer ${token}`
-      //   }
-      // });
-      const response = await fetch('https://rate-us.onrender.com/api/stores',{
+      const response = await fetch('http://localhost:1997/api/stores',{
         headers:{
           Authorization: `Bearer ${token}`
         }
       });
+      //Render
+      // const response = await fetch('https://rate-us.onrender.com/api/stores',{
+      //   headers:{
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // });
       const data = await response.json();
       dispatch({
           type:FETCH_STORE_SUCCESS,
@@ -185,17 +190,17 @@ export const fetchAllStores = () => {
   return async (dispatch) => {
     try {
       const token = getBearerToken()
-      // const response = await fetch('http://localhost:1997/api/allStores',{
-      //   headers:{
-      //     Authorization: `Bearer ${token}`
-      //   }
-      // });
-      //RENDER
-      const response = await fetch('https://rate-us.onrender.com/api/allStores',{
+      const response = await fetch('http://localhost:1997/api/allStores',{
         headers:{
           Authorization: `Bearer ${token}`
         }
       });
+      //RENDER
+      // const response = await fetch('https://rate-us.onrender.com/api/allStores',{
+      //   headers:{
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // });
       const data = await response.json();
       dispatch({
         type: FETCH_STORES_SUCCESS,
@@ -213,16 +218,17 @@ export const fetchUserComments = () => {
   return async (dispatch) => {
     try {
       const token = getBearerToken()
-      // const response = await axios.get('http://localhost:1997/api/userComments',{
-      //   headers:{
-      //     Authorization: `Bearer ${token}`
-      //   }
-      // });
-      const response = await axios.get('https://rate-us.onrender.com/api/userComments',{
+      const response = await axios.get('http://localhost:1997/api/userComments',{
         headers:{
           Authorization: `Bearer ${token}`
         }
       });
+      //Render
+      // const response = await axios.get('https://rate-us.onrender.com/api/userComments',{
+      //   headers:{
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // });
       dispatch({
         type: FETCH_USER_COMMENT_SUCCESS,
         payload: response.data,
@@ -235,4 +241,70 @@ export const fetchUserComments = () => {
       });
     }
   };
+}
+//fetch Edit 
+export const fetchEditedComments = (storeId ,commentId , updatedCommentText) =>{
+  return async(dispatch) =>{
+    try{
+      const token = getBearerToken()
+      const headers={
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+      await axios.put(`http://localhost:1997/api/stores/comments/${commentId}`,{
+        commentText:updatedCommentText
+      },
+      {
+        headers:headers
+      }
+      )
+            // Fetch the updated comments after the successful update
+            const response = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`, {
+              headers: headers,
+            });
+            const updatedComments = response.data.comments;
+      dispatch({
+        type:FETCH_EDITED_COMMENTS_SUCCESS,
+        payload:updatedComments,
+      })
+    }catch(error) {
+      console.log(error)
+      dispatch({
+        type:FETCH_EDITED_COMMENTS_FAIL,
+        error:error.message
+      })
+    }
+  }
+}
+export const fetchDeleteComment = (commentId , storeId) =>{
+  return async(dispatch) =>{
+    try{
+      const token = getBearerToken()
+      const headers = {
+        Authorization:`Bearer ${token}`,
+        'Content-Type':`application/json`
+      };
+      await axios.delete(`http://localhost:1997/api/stores/comments/${commentId}`,{
+        headers:headers
+      })
+      dispatch({
+        type:FETCH_DELETE_COMMENTS_SUCCESS,
+        payload:commentId
+      })
+      const response = await axios.get(`http://localhost:1997/api/stores/${storeId}/comments`,{
+        headers:headers
+      })
+      const updatedComments = response.data.comments
+      dispatch({
+        type:FETCH_COMMENTS_SUCCESS,
+        payload:updatedComments
+      })
+    }
+    catch(error){
+      dispatch({
+        type: FETCH_DELETE_COMMENTS_FAIL,
+        payload: error.message
+      });
+    }
+  }
 }

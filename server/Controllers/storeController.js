@@ -208,6 +208,56 @@ const fetchCommentsFromDatabase = async (storeId) => {
       res.status(500).json({error:`Internal Server Error`})
     }
   }
+  const editComment = async(req , res ) =>{
+    try{
+      const {commentId} = req.params;
+      const {commentText} = req.body;
+      const comment = await Comment.findById(commentId)
+      if(!comment) {
+        return res.status(404).json({ error: 'Comment not found' });
+      }
+      comment.commentText = commentText
+      comment.edited=true
+      await comment.save();
+      const updatedComments = await fetchCommentsFromDatabase(comment.store)
+      res.json({comments:updatedComments})
+    }catch(error) {
+      res.status(404).json({error:`Server Error Please contact Support!`})
+    }
+  }
+  //Delete Comment
+  const deleteComment = async(req , res) => {
+    const {commentId} = req.params
+    try{
+      const userRole = req.user.role;
+      if(userRole !== `admin`){
+        return  res.status(500).json({error:`Only Admin User can Delete Comments!`})
+      }
+      const comment = await Comment.findById(commentId)
+      console.log(`this comment comingfrom node server` ,comment);
+      if(!comment) {
+        return res.status(404).json({error:`Comment Not Found!`})
+      }
+      await comment.deleteOne()
+      const store = await Store.findById(comment.store)
+      if(store) {
+        if(comment.status === `Recommended`) {
+          store.Recommended--;
+        }
+        else if(comment.status === `NotRecommended`) {
+          store.NotRecommended--;
+        } else if(comment.status===`Sovled-Case`){
+          store.solvedCases--
+        }
+        await store.save()
+      }
+      const updatedComments = await fetchCommentsFromDatabase(comment.store)
+      res.json({comments:updatedComments})
+    }catch(error) {
+      console.log(error);
+      res.status(404).json({error:`Server Error Please Contact Support!`})
+    }
+  }
 module.exports = {
     updateRoute,
     addedRoute,
@@ -217,4 +267,6 @@ module.exports = {
     commentIdApi,
     getAllStores,
     fetchAllUserComments,
+    editComment,
+    deleteComment,
 }
