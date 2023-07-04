@@ -21,7 +21,7 @@ require("dotenv").config();
 //   }));
   //Method for render.com
 app.use(cors({
-    origin: 'https://rate-us-seven.vercel.app/',
+    origin: 'https://rate-afq66ssd7-noursoliman.vercel.app/',
     credentials: true,
   }));
   app.use(cookieParser());
