@@ -1,9 +1,4 @@
-/* .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-} */
+
 .true-div {
     display: flex;
     flex-direction: column;
@@ -21,7 +16,6 @@
     display: flex;
     justify-content: center;
     background-color: darkseagreen;
-    /* width: 100px; */
     padding: 7px;
     color: white;
     font-family: sans-serif;
@@ -41,4 +35,87 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+  }
+  /*****************************************************************/
+  /*Login*/
+  .login-container {
+    /* background: linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 50%, #000000 50%, #000000 100%); */
+    padding: 20px;
+    background-color: var(--form-background);
+    box-shadow: var(--box-shadow);
+    color: var(--body-color);
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 30%;
+    height: 50vh;
+    position: relative;
+    z-index: 1;
+    top: 50px;
+  }
+  .login-logo{
+    width: 250px;
+    position: relative;
+    z-index: 1;
+  }
+  .login-container .login-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .login-container label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .login-container input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+  
+  .login-button{
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #45a049;
+  }
+  .sign-up-link{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+  }
+  .login-dark{
+    display: flex;
+    justify-content: center;
+  }
+  /***********************************************************************/
+  /*Media Query*/
+  @media screen and (max-width:767px){
+    .login-logo{
+        width: 150px;
+        top:-5px;
+    }
+    .login-container {
+        height: 60vh;
+    }
+    .login-container,
+    .svg-top,
+    .svg-bottom {
+      max-width: 90%;
+    }
   }

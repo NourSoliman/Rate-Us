@@ -1,3 +1,36 @@
+
+:root{
+  --body-background:#EDF2F3;
+  --navbar-color:white;
+  --button-color:#5289B5;
+  --body-color:black;
+  --main-font:'Arimo', sans-serif;
+  --commented-at:rgba(0, 0, 0, 0.6);
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --dashboard-left:white;
+  --dashboard-comments:ghostwhite;
+  --dashboard-comments-shadow:0 2px 4px rgba(0, 0, 0, 0.2);
+  --form-background:white;
+  --profile-container:#ffffff;
+  --status-color: darkslategray;
+  --footer-background:ghostWhite;
+}
+[data-theme="dark"]{
+  --body-background: rgba(44, 47, 51, 1);
+  --navbar-color:#131921;
+  --body-color:white;
+  --button-color:#5289B5;
+  --main-font:'Arimo', sans-serif;
+  --commented-at:gray;
+  --box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  --dashboard-comments-shadow:0 2px 4px rgba(255, 255, 255, 0.1);
+  --dashboard-comments:rgba(44, 47, 51, 1);
+  --dashboard-left:rgba(32,33,35,1);
+  --form-background:rgba(44, 47, 51, 1);
+  --profile-container:rgba(44, 47, 51, 1);
+  --status-color:#131921;
+  --footer-background:#232F3E
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

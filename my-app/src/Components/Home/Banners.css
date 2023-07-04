@@ -1,0 +1,18 @@
+.banner-images{
+    width: 100%;
+    height: auto;
+}
+.banner-container{
+  overflow: hidden;
+}
+@media screen and (max-width: 1024px) {
+    .banner-images {
+      height: auto; 
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .banner-images {
+      height: auto; 
+    }
+  }

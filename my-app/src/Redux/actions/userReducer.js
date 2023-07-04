@@ -1,5 +1,4 @@
-import jwt_decode from 'jwt-decode';
-import Cookies from 'js-cookie';
+
 import { REGISTER_SUCCESS, REGISTER_FAIL
     , LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT_SUCCESS 
     , GET_USER_FAIL , GET_USER_SUCCESS
@@ -8,6 +7,8 @@ import { REGISTER_SUCCESS, REGISTER_FAIL
     CHANGE_PASSWORD_SUCCESS,
     ADD_STORE_REQUEST,ADD_STORE_SUCCESS,
     ADD_STORE_FAIL,
+    FETCH_PROFILE_COMMENTS_FAIL,
+    FETCH_PROFILE_COMMENTS_SUCCESS
 } from './types';
     const storedUserName = localStorage.getItem('userName');
     // const storedRole = localStorage.getItem('role');
@@ -22,11 +23,15 @@ const inistialState={
     userName:storedUserName,
     otp:``,
     loggedIn:false,
-    loading:false,
+    loading:true,
     passwordLoading:false,
     passwordError:null,
     stores:[],
-
+    comments: [],
+    age:null,
+    commentCount:null,
+    gender:null,
+    creationDate:null,
 }
 const userReducer = (state = inistialState , action) =>{
     switch(action.type){
@@ -35,14 +40,16 @@ const userReducer = (state = inistialState , action) =>{
                 ...state,
                 user:action.payload.user,
                 msg:action.payload.msg,
-                error:null
+                error:null,
+                loading:false
             };
         case REGISTER_FAIL:
             return {
                 ...state,
                 user:null,
                 msg:null,
-                error:action.payload
+                error:action.payload,
+                loading:false
             };
         case LOGIN_SUCCESS:
             localStorage.setItem('userName', action.payload.userName);
@@ -56,8 +63,8 @@ const userReducer = (state = inistialState , action) =>{
                 token:action.payload.token,
                 userName:action.payload.userName,
                 error:null,
-
                 loggedIn:true,
+                loading:false,
             };
         case LOGIN_FAIL:
             return {
@@ -66,7 +73,8 @@ const userReducer = (state = inistialState , action) =>{
                 msg:null,
                 token:null,
                 loggedIn:false,
-                error:action.payload
+                error:action.payload,
+                loading:false,
             }
         case LOGOUT_SUCCESS:
             localStorage.removeItem('userName');
@@ -84,6 +92,7 @@ const userReducer = (state = inistialState , action) =>{
                 ...state,
                 user:action.payload,
                 msg:action.payload,
+                loading:false,
                 error:null
             }
         case GET_USER_FAIL:
@@ -91,6 +100,7 @@ const userReducer = (state = inistialState , action) =>{
                 ...state,
                 user:null,
                 msg:null,
+                loading:false,
                 error:action.payload
             }
         case CHANGE_PASSWORD_REQUEST:
@@ -98,25 +108,28 @@ const userReducer = (state = inistialState , action) =>{
                 ...state,
                 passwordLoading:true,
                 passwordError:null,
+                loading:false,
             }
         case CHANGE_PASSWORD_SUCCESS:
             return{
                 ...state,
                 passwordLoading:false,
                 passwordError:null,
-                msg:action.payload
+                msg:action.payload,
+                loading:false,
             }
         case CHANGE_PASSWORD_FAIL:
             return {
                 ...state,
                 passwordLoading:false,
                 passwordError:action.payload,
-                msg:null
+                msg:null,
+                loading:false,
             }
         case ADD_STORE_REQUEST:
             return{
                 ...state,
-                loading:true,
+                loading:true,   
                 error:null,
             }
         case ADD_STORE_SUCCESS:
@@ -130,6 +143,27 @@ const userReducer = (state = inistialState , action) =>{
                 ...state,
                 loading:false,
                 error:action.payload
+            }
+        case FETCH_PROFILE_COMMENTS_SUCCESS:
+            return {
+                ...state,
+                loading:false,
+                comments:action.payload.comments,
+                age:action.payload.age,
+                commentCount:action.payload.commentCount,
+                gender:action.payload.gender,
+                creationDate:action.payload.creationDate
+            }
+        case FETCH_PROFILE_COMMENTS_FAIL:
+            return {
+                ...state,
+                loading:false,
+                comments:[],
+                error:action.payload,
+                age:null,
+                commentCount:null,
+                gender:null,
+                creationDate:null,
             }
         default:
             return state

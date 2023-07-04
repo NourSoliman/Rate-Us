@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,600;1,600&family=IBM+Plex+Sans+Arabic:wght@400;500&family=Poppins:ital,wght@1,600&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@300;500&display=swap");
+.arabic {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-weight: 500;
+}
+.navBar-Container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  background-color:var(--navbar-color);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 5px;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+.links-Container {
+  display: flex;
+}
+.links-Container li {
+  list-style: none;
+  align-items: center;
+}
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.stores-li {
+  padding-top: 20px;
+  margin-left: 10px;
+}
+.logo {
+  padding-top: 10px;
+}
+
+.ul-sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.ul-sign li {
+    text-decoration: none !important;
+    padding: 25px;
+    font-size: 20px;
+}
+.logo {
+  width: 200px;
+}
+.custom-menu-item {
+  z-index: 9999;
+}
+.MuiList-root.MuiList-padding.MuiMenu-list.css-6hp17o-MuiList-root-MuiMenu-list {
+  width: 150px !important;
+}
+.nav-dark{
+  display: none;
+}
+/***************************************************************************************************/
+/*Media query*/
+@media screen and (max-width:767px)  {
+  /*Navbar*/
+  .logo{
+    width: 150px !important;
+  }
+  .links-Container{
+    padding: 0 !important;
+  }
+  .MuiButtonBase-root{
+    padding: 0 !important;
+    font-size: 10px !important;
+    min-width: 0 !important;
+  }
+  .stores-li .MuiSvgIcon-root{
+    display: none !important;
+  }
+  .css-6hp17o-MuiList-root-MuiMenu-list{
+    margin-left: 12px !important;
+  }
+  .MuiPaper-root {
+    margin-top: 6px !important;
+  }
+  .row{
+    --bs-gutter-x: 0 !important;
+  }
+  /*Details*/
+  .details-container{
+    width: 100% !important;
+  }
+}

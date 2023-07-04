@@ -1,0 +1,49 @@
+.slider-images{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.slider-store-name{
+    margin-left: 12px;
+}
+.slick-list {
+  margin-bottom: 30px !important;
+}
+.store-hover-info {
+    color: var(--body-color);
+    width: 70%;
+    padding: 10px;
+
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  
+  .slider-images-container:hover .store-hover-info {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  
+  .store-hover-info p {
+    margin: 5px 0;
+  }
+  
+  .store-hover-info p:first-child {
+    font-weight: bold;
+  }
+
+
+@media screen and (max-width:767px){
+    .slider-images{
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+    }
+    .slider-store-name{
+        font-size: 15px;
+    }
+}

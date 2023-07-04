@@ -30,6 +30,14 @@ const storeSchema = new mongoose.Schema({
       ref: 'Comment',
     },
   ],
+  selling: [
+    {
+      type: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const Store = mongoose.model('Store', storeSchema);

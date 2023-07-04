@@ -1,0 +1,91 @@
+/*Media Query*/
+@media screen and (max-width:767px) {
+body{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+    .filter-comments .filter-ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    .filter-comments .filter-ul li button {
+        font-size: 8px;
+    }
+
+    /*Comments*/
+    .comments-header {
+    text-align: center;
+    }
+
+    .form-control {
+        width: 86% !important;
+    }
+
+    .commentFormContainer{
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+    }
+    /*Store */
+    .storeBanner {
+        object-fit: contain;
+    }
+    .storeMainPicture{
+        width: 70px;
+        height: 70px;
+        top: 214px;
+        left: 52%;
+    }
+    .storeInfoContainer {
+        margin: 0;
+    }
+    .storeDesc{
+        text-align: center;
+    }
+    .main-left-column {
+        padding-left: 0 !important;
+    }
+    /*Comment graph*/
+    .main-right-column h3 {
+       text-align: center;
+    }
+    /*Stores Comments*/
+    /*Votes*/
+    .votes-container{
+        gap:5px;
+    }
+    .pictures-link-store{
+        font-size: 11px;
+    }
+    .comment-text-store{
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .filtered-stores-container{
+        display: block !important;
+        /* margin: 0 !important; */
+        width: 0 !important;
+    }
+    .store-card {
+        margin-bottom: 5px !important;
+        margin-left: 34px !important;
+    }
+}
+/*Tablet or Medium screens*/
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .filter-comments .filter-ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    .filter-comments .filter-ul li button {
+        font-size: 18px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .filter-comments .filter-ul li button {
+        font-size: 17px;
+    }
+}

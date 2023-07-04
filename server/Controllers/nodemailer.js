@@ -13,17 +13,17 @@
         let mailGenerator = new mailgen({
             theme: "cerberus",
             product: {
-                name: "Companies Rate",
-                link: "not yet"
+                name: "صوت المستهلك",
+                // link: "not yet"
             }
         })
         let response = {
             body: {
                 name: userName,
-                intro: "Welcome to Companies Rate website",
+                intro: "اهلا بيك فى موقع صوت المستهلك",
                 table: {
                     data: [
-                        { item: "companies website", }
+                        { item: "صوت المستهلك", }
                     ]
                 },
                 outro: "WELCOME!!"

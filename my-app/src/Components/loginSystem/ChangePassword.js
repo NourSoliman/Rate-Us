@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {ChangePassword} from '../../Redux/actions/actions'
 import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'; 
+import './Change.css'
+import NavBar from '../Home/NavBar';
 function ChangePasswordForm() {
     const [oldPassword, setOldPassword] = useState(``)
     const [newPassword, setNewPassword] = useState(``)
@@ -26,13 +28,16 @@ function ChangePasswordForm() {
       }
   return (
     <div>
-        <label>Current Password</label>
-        <input type="password" placeholder='Current Password' value={oldPassword} onChange={(e)=> setOldPassword(e.target.value)}></input>
-        <label>New Password</label>
-        <input type="password" placeholder='New Password' value={newPassword} onChange={(e)=>setNewPassword(e.target.value)}/>
-        <label>Confirm Password</label>
-        <input type="password" placeholder='confirm Password' value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}></input>
-        <button onClick={handleChangePassword}>Change Password</button>
+      <NavBar />
+    <div className='change-password-form'>
+        <label className='form-label'>Current Password</label>
+        <input type="password" placeholder='Current Password' value={oldPassword} onChange={(e)=> setOldPassword(e.target.value)} className='form-input'></input>
+        <label className='form-label'>New Password</label>
+        <input type="password" placeholder='New Password' value={newPassword} onChange={(e)=>setNewPassword(e.target.value)} className='form-input'/>
+        <label className='form-label'>Confirm Password</label>
+        <input type="password" placeholder='confirm Password' value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} className='form-input' />
+        <button onClick={handleChangePassword} className='form-button'>Change Password</button>
+    </div>
     </div>
   )
 }

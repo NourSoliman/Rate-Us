@@ -1,0 +1,115 @@
+.store-row {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    gap: 20px;
+  }
+    .filtered-stores-container{
+      display: flex;
+      gap: 25px;
+      min-height: 100vh;
+    }
+  
+  .store-card {
+    width: 300px !important;
+    height: 400px !important;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden; 
+    word-wrap: break-word; 
+    box-shadow: var(--box-shadow) !important;
+  }
+  .store-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  .card-cover {
+    position: relative;
+    height: 200px; 
+    background-color: #f2f2f2; 
+    overflow: hidden;
+  }
+  
+  .store-image {
+
+    overflow: hidden;
+    margin-bottom: 20px;
+    position: relative;
+
+  }
+
+  
+  .store-picture {
+    width: 297px;
+    object-fit: cover;
+    height: 150px;
+    border-top-left-radius: 10px;
+  }
+
+  .store-details {
+    flex-grow: 1;
+  }
+  
+  .store-name {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .store-desc {
+    font-size: 14px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  .status-stores-container {
+    display: flex;
+    gap: 25px;
+    background-color: var(--status-color)	;
+    color: white;
+    width: 100%;
+    height: 50px; 
+    position: absolute;
+    bottom: 0;
+
+  }
+  .status-numbers-stores{
+    margin: 0 !important;
+  }
+  .status-tag-stores {
+    font-size: 10px;
+  }
+  .reco-container{
+    border-right: 1px solid white;
+  }
+  .reco-container span{
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+  .notreco-container{
+  border-left: 1px solid white;
+  }
+  .notreco-container span {
+    margin-left: 7px;
+  }
+  .search-bar-container{
+    margin-top: 20px !important;
+  }
+  .search-bar{
+    width: 300px; 
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 10px;
+  }
+  .filtered-stores-div{
+    display: flex;
+    gap: 15px;
+    min-height: 100vh;
+  }

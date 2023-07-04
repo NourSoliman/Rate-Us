@@ -1,0 +1,228 @@
+.dashboard-picture{
+    width: 250px;
+    height: 250px;
+    margin-bottom: 70px;
+}
+.dashboard-row {
+    padding-top: 15px;
+}
+.label {
+  color: var(--body-color);
+}
+  
+  .username {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .email {
+    color: #555555;
+  }
+  
+  .creation-date {
+    color: #888888;
+    font-size: 14px;
+  }
+/* .dashboard-info {
+    background: white;
+    padding: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+} */
+.dashboard-info h5 {
+  color: var(--body-color);
+}
+.dashBoard-left-column{
+  /* background-color: var(--dashboard-left); */
+  /* border-radius: 10px; */
+  margin-top:5px !important;
+  /* box-shadow: var(--box-shadow); */
+  padding-left: 0 !important;
+  flex: 1;
+}
+.deletedStore {
+    color: red !important;
+}
+/*******************************************************************************/
+/*DashBoardSideBar*/
+
+.status-not-recommended {
+  color: red;
+}
+
+.status-recommended {
+  color: green;
+}
+.col-lg-10{
+  height: 100vh;
+    background-color: var(--body-background);
+    border-radius: 15px;
+}
+
+
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.dashboard-row {
+  flex: 1;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.dashboard-col{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.buttons-container{
+  display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-left: 10px;
+}
+
+.logout{
+  cursor: pointer;
+}
+.button-item {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--navbar-color);
+  border-radius: 10px;
+}
+.profileDetails , .my-comments {
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: #888888;
+}
+.details-container{
+  background-color: white;
+  padding: 5px;
+  border-radius: 27px;
+  margin-top: 5px;
+  margin-left: 2px;
+  margin-bottom: 20px;
+}
+.details-container{
+  background-color: white;
+  padding: 5px;
+  border-radius: 27px;
+  margin-top: 5px;
+  margin-left: 2px;
+  margin-bottom: 20px;
+  width: 70%;
+}
+.verified-text {
+  margin-left: 5px;
+  margin-right: 5px;
+  color: darkgray;
+}
+.password-container {
+  background-color: white;
+  padding: 5px;
+  border-radius: 27px;
+  margin-top: 5px;
+  margin-left: 2px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: 70%;
+}
+
+.password-label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.change-password-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.button-item.active span {
+  color: var(--body-color) !important;
+}
+
+
+/********NAV BARRRR*****************************************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,600;1,600&family=IBM+Plex+Sans+Arabic:wght@400;500&family=Poppins:ital,wght@1,600&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@300;500&display=swap");
+.arabic {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-weight: 500;
+}
+.dashboardnavBar-Container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+  background-color: var(--navbar-color) ;
+
+}
+.links-Container {
+  display: flex;
+}
+.links-Container li {
+  list-style: none;
+  align-items: center;
+}
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.stores-li {
+  padding-top: 20px;
+  margin-left: 10px;
+}
+
+.ul-sign {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.ul-sign li {
+    text-decoration: none !important;
+    padding: 25px;
+    font-size: 20px;
+}
+.logo {
+  width: 200px;
+  padding-top: 10px;
+}
+.custom-menu-item {
+  z-index: 9999;
+}
+/*******************************************************************************/
+/*dashBoard comments*/
+.comments-li {
+  background-color: var(--body-background);
+  color: var(--body-color);
+    padding: 10px;
+    box-shadow: var(--dashboard-comments-shadow);
+    margin-bottom: 12px
+}
+.comment-status-text{
+  color: black !important;
+}
+.commented-at-dashboard {
+  font-size: 13px;
+    color: gray;
+}
+.comment-text , .comment-links , .comments-store-name , .comment-status-text{
+  color: gray !important;
+}

@@ -1,0 +1,29 @@
+.slider-container{
+    margin-top: 20px;
+}
+.home-page-container{
+    overflow: hidden;
+    flex: 1;
+}
+.home-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.home-content{
+    flex: 1;
+    overflow-y: auto;
+}
+.last-column-container {
+    width: 100%;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .bottom-svg {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }

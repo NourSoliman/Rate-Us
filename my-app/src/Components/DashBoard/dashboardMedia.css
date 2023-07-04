@@ -1,0 +1,40 @@
+@media screen and (max-width:767px){
+
+     .profile-details , .my-comment {
+        font-size:17px;
+    } 
+    .buttons-container{
+        flex-direction: inherit;
+    }
+    .dashboardsidebar-container{
+        background-color: var(--body-background);
+        height: inherit;
+    }
+    .col-lg-2{
+    background-color: transparent;
+    }
+    .pagination-container{
+        width: 286px !important;
+        font-size: 10px !important;
+    }
+    .pagination-break{
+        margin-top: 5px !important;
+    }
+    .dashboard-comments-link{
+        font-size: 13px;
+    }
+    .store-card{
+        margin: auto;
+    }
+    .password-container {
+        width: 100%;
+    }
+    .button-item{
+        padding: 3px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    .profileDetails,.my-comments{
+        font-size: 13px;
+    }
+}

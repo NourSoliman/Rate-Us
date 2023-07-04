@@ -1,7 +1,9 @@
 import React from 'react'
 import { useDispatch  } from 'react-redux'
+import { Button } from '@mui/material';
+import { Logout } from '@mui/icons-material';
 import { logoutAction } from '../../Redux/actions/actions'
-const Logout = () => {
+const LogoutButton = () => {
     const dispatch = useDispatch()
     const handleLogout = () =>{ 
       
@@ -9,9 +11,9 @@ const Logout = () => {
     }
   return (
     <div>
-        <button onClick={handleLogout}>Logout</button>
+        <Button onClick={handleLogout} startIcon={<Logout />}>Logout</Button>
     </div>
   )
 }
 
-export default Logout
+export default LogoutButton

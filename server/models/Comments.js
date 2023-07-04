@@ -32,6 +32,18 @@ const commentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  links:{
+    type:String,
+    required:false
+  },
+  upVotes:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:`User`
+  }],
+  downVotes:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:`User`
+  }]
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
