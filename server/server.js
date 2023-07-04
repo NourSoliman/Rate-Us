@@ -21,7 +21,7 @@ require("dotenv").config();
 //   }));
   //Method for render.com
 app.use(cors({
-    origin: 'https://rate-afq66ssd7-noursoliman.vercel.app/',
+    origin: process.env.REACT_APP_VERCEL_URL,
     credentials: true,
   }));
   app.use(cookieParser());
