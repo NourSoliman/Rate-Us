@@ -21,7 +21,6 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector((state) => state.user.error);
-  const loading = useSelector((state)=> state.user.loading)
   console.log("Error:", error);
   const msg = useSelector((state) => state.user.msg);
   console.log("Msg:", msg);
@@ -95,16 +94,7 @@ const RegistrationForm = () => {
     const value = e.target.value; // Accept any value entered by the user
     setYearOfBirth(value);
   };
-  if (loading) {
-    return (
-      <div className="loading-spinner">
-        <Spinner animation="border" role="status">
-          <span className="sr-only"></span>
-        </Spinner>
-        <h2>Loading...</h2>
-      </div>
-    );
-  }
+
 
   return (
     <div>

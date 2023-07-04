@@ -14,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const loggedIn = useSelector((state) => state.user.loggedIn);
-  const loading = useSelector((state) => state.user.loading)
   useEffect(() => {
     const token = Cookies.get(`token`);
     if (loggedIn || token) {
@@ -39,16 +38,7 @@ const Login = () => {
       console.log(error);
     }
   };
-  if (loading) {
-    return (
-      <div className="loading-spinner">
-        <Spinner animation="border" role="status">
-          <span className="sr-only"></span>
-        </Spinner>
-        <h2>Logging...</h2>
-      </div>
-    );
-  }
+
   return (
     <div>
       <div className="login-logo">
