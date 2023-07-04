@@ -21,7 +21,7 @@ require("dotenv").config();
 //   }));
   //Method for render.com
 app.use(cors({
-    origin: 'https://rateus.onrender.com',
+    origin: 'https://rate-us-seven.vercel.app/',
     credentials: true,
   }));
   app.use(cookieParser());
