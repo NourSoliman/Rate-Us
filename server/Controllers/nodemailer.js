@@ -14,7 +14,7 @@
             theme: "cerberus",
             product: {
                 name: "صوت المستهلك",
-                // link: "not yet"
+                link: "not yet"
             }
         })
         let response = {
