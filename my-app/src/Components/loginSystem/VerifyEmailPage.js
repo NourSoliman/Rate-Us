@@ -12,7 +12,6 @@ function VerifyEmailPage() {
   useEffect(()=>{
     const verifyEmailUrl = async () => {
       try {
-        const verifyUrl = process.env.REACT_APP_VERCEL_URL
         // const url = `http://localhost:1997/api/verify-email?token=${token}`
         //Render
         const url = `${window.location.origin}/api/verify-email?token=${token}`
@@ -27,7 +26,7 @@ function VerifyEmailPage() {
       }
     }
 
-
+    verifyEmailUrl()
   },[token])
   if (isLoading) {
     return (
