@@ -188,7 +188,7 @@ async function register(req, res, next) {
         pass: process.env.PASSWORD,
       },
     });
-    const ReactURL=process.env.REACT_APP_VERCEL_URL
+    const ReactURL=`https://rate-us.onrender.com`
     const mailOptions = {
       from: 'Rate Website',
       to: email,
