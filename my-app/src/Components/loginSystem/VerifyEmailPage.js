@@ -26,13 +26,9 @@ function VerifyEmailPage() {
         setIsLoading(false)
       }
     }
-    if(verificationStatus===false){
-      verifyEmailUrl()
-    } else{
-      setIsLoading(false);
-    }
 
-  },[token , verificationStatus])
+
+  },[token])
   if (isLoading) {
     return (
       <div className='loading-spinner'>
