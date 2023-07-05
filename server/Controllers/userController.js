@@ -18,6 +18,118 @@ async function verifyUser(req, res, next) {
   }
 }
 // POST REGISTER ROUTER
+// async function register(req, res, next) {
+//   try {
+//     const {
+//       userName,
+//       email,
+//       password,
+//       confirmPassword,
+//       profile,
+//       gender,
+//       dayOfBirth,
+//       monthOfBirth,
+//       yearOfBirth,
+//     } = req.body;
+//     // check existUserName
+//     const existUserName = new Promise((resolve, reject) => {
+//       User.findOne({ userName })
+//         .then((existUserName) => {
+//           if (existUserName) {
+//             reject({ error: `This User-Name already Exist` });
+//           } else {
+//             resolve();
+//           }
+//         })
+//         .catch((error) => reject(new Error(error)));
+//     });
+//     //Check existEmail
+//     const existEmail = new Promise((resolve, reject) => {
+//       User.findOne({ email })
+//         .then((existEmail) => {
+//           if (existEmail) {
+//             reject({ error: `This Email Already Exist` });
+//           } else {
+//             resolve();
+//           }
+//         })
+//         .catch((error) => reject(new Error(error)));
+//     });
+//     Promise.all([existUserName, existEmail])
+//       .then(() => {
+//         if (password !== confirmPassword) {
+//           return res
+//             .status(400)
+//             .send({ error: "Password and confirmPassword should match" });
+//         }
+//         bcrypt
+//           .hash(password, 10)
+//           .then((hashedPassword) => {
+//             const user = new User({
+//               userName,
+//               password: hashedPassword,
+//               email,
+//               confirmPassword: hashedPassword,
+//               gender,
+//               profile,
+//               role: `user`,
+//               dayOfBirth,
+//               monthOfBirth,
+//               yearOfBirth,
+//             });
+//             const verificationToken = jwt.sign(
+//               { email },
+//               process.env.JWT_SECRET,
+//               {
+//                 expiresIn: "24h",
+//               }
+//             );
+//             const ReactURL = process.env.REACT_APP_VERCEL_URL
+//             user
+//               .save()
+//               .then((result) => {
+//                 // res.status(201).send({msg:`User Created SuccessFully, You will receive an email soon!`})
+//                 const transporter = nodemailer.createTransport({
+//                   service: "gmail",
+//                   auth: {
+//                     user: process.env.EMAIL,
+//                     pass: process.env.PASSWORD,
+//                   },
+//                 });
+//                 const mailOptions = {
+//                   from: `Rate Website`,
+//                   to: email,
+//                   subject: `Email Verification`,
+//                   html: `<p>Please click on the following link to verify your email: <a href="${ReactURL}/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
+//                 };
+//                 transporter.sendMail(mailOptions, (error, info) => {
+//                   if (error) {
+//                     console.log(`error sending verification email`, error);
+//                   } else {
+//                     console.log("Verification email sent:", info.response);
+//                   }
+//                 });
+//                 res.status(201).send({
+//                   msg: "User Created Successfully, You will receive an email for verification",
+//                 });
+//                 next();
+//               })
+//               .catch((error) => console.log(error));
+//           })
+//           .catch((error) => {
+//             return res.status(500).send({
+//               error: `User Created Failed`,
+//             });
+//           });
+//       })
+//       .catch((error) => {
+//         return res.status(500).send(error);
+//       });
+//   } catch (error) {
+//     return res.status(500).send(error);
+//   }
+// }
+//changed promise to async and await
 async function register(req, res, next) {
   try {
     const {
@@ -31,104 +143,71 @@ async function register(req, res, next) {
       monthOfBirth,
       yearOfBirth,
     } = req.body;
-    // check existUserName
-    const existUserName = new Promise((resolve, reject) => {
-      User.findOne({ userName })
-        .then((existUserName) => {
-          if (existUserName) {
-            reject({ error: `This User-Name already Exist` });
-          } else {
-            resolve();
-          }
-        })
-        .catch((error) => reject(new Error(error)));
+
+    const existingUserName = await User.findOne({ userName });
+    if (existingUserName) {
+      return res.status(400).send({ error: 'This User-Name already exists' });
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).send({ error: 'This Email already exists' });
+    }
+
+    if (password !== confirmPassword) {
+      return res
+        .status(400)
+        .send({ error: 'Password and confirmPassword should match' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({
+      userName,
+      password: hashedPassword,
+      email,
+      confirmPassword: hashedPassword,
+      gender,
+      profile,
+      role: 'user',
+      dayOfBirth,
+      monthOfBirth,
+      yearOfBirth,
     });
-    //Check existEmail
-    const existEmail = new Promise((resolve, reject) => {
-      User.findOne({ email })
-        .then((existEmail) => {
-          if (existEmail) {
-            reject({ error: `This Email Already Exist` });
-          } else {
-            resolve();
-          }
-        })
-        .catch((error) => reject(new Error(error)));
+
+    const verificationToken = jwt.sign({ email }, process.env.JWT_SECRET, {
+      expiresIn: '24h',
     });
-    Promise.all([existUserName, existEmail])
-      .then(() => {
-        if (password !== confirmPassword) {
-          return res
-            .status(400)
-            .send({ error: "Password and confirmPassword should match" });
-        }
-        bcrypt
-          .hash(password, 10)
-          .then((hashedPassword) => {
-            const user = new User({
-              userName,
-              password: hashedPassword,
-              email,
-              confirmPassword: hashedPassword,
-              gender,
-              profile,
-              role: `user`,
-              dayOfBirth,
-              monthOfBirth,
-              yearOfBirth,
-            });
-            const verificationToken = jwt.sign(
-              { email },
-              process.env.JWT_SECRET,
-              {
-                expiresIn: "24h",
-              }
-            );
-            const ReactURL = process.env.REACT_APP_VERCEL_URL
-            user
-              .save()
-              .then((result) => {
-                // res.status(201).send({msg:`User Created SuccessFully, You will receive an email soon!`})
-                const transporter = nodemailer.createTransport({
-                  service: "gmail",
-                  auth: {
-                    user: process.env.EMAIL,
-                    pass: process.env.PASSWORD,
-                  },
-                });
-                const mailOptions = {
-                  from: `Rate Website`,
-                  to: email,
-                  subject: `Email Verification`,
-                  html: `<p>Please click on the following link to verify your email: <a href="${ReactURL}/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
-                };
-                transporter.sendMail(mailOptions, (error, info) => {
-                  if (error) {
-                    console.log(`error sending verification email`, error);
-                  } else {
-                    console.log("Verification email sent:", info.response);
-                  }
-                });
-                res.status(201).send({
-                  msg: "User Created Successfully, You will receive an email for verification",
-                });
-                next();
-              })
-              .catch((error) => console.log(error));
-          })
-          .catch((error) => {
-            return res.status(500).send({
-              error: `User Created Failed`,
-            });
-          });
-      })
-      .catch((error) => {
-        return res.status(500).send(error);
-      });
+
+    await user.save();
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: 'Rate Website',
+      to: email,
+      subject: 'Email Verification',
+      html: `<p>Please click on the following link to verify your email: <a href="${ReactURL}/api/verify-email?token=${verificationToken}">Verify Email</a></p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    
+    res.status(201).send({
+      msg: 'User Created Successfully, You will receive an email for verification',
+    });
+    next();
   } catch (error) {
-    return res.status(500).send(error);
+    console.log(error);
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 }
+
 // POST Login ROUTER
 async function login(req, res) {
   try {
