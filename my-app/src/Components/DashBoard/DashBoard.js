@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Spinner, Col, Row } from "react-bootstrap";
 import { GET_USER_SUCCESS } from "../../Redux/actions/types";
 import { fetchUserComments } from "../../Redux/storesRedux/storeAction";

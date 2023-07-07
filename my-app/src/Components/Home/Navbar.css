@@ -88,4 +88,8 @@
   .details-container{
     width: 100% !important;
   }
+  .ul-sign li{
+    padding: 5px;
+    font-size: 13px;
+  }
 }
