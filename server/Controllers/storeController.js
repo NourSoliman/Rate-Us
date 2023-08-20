@@ -67,6 +67,7 @@ const addedRoute = async (req, res) => {
 const getStores = async (req, res) => {
   try {
     const storeId = req.params.storeId;
+
     // const store = await Store.findById(storeId)
     const store = await Store.findById(storeId);
     if (!storeId) {
@@ -74,6 +75,7 @@ const getStores = async (req, res) => {
     }
     res.json({ store });
   } catch (error) {
+    console.log(error)
     return res.status(500).send({ error: `server error` });
   }
 };

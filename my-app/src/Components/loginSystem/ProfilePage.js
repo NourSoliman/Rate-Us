@@ -7,14 +7,15 @@ import Male from '../Images/Male.png'
 import Female from '../Images/Female.png'
 import ReactPaginate from "react-paginate";
 import './profile.css'
-import NavBar from "../Home/NavBar";
 import Cookies from "js-cookie";
-import { Spinner } from "react-bootstrap";
+import {   Container } from "react-bootstrap";
+import { Bars } from  'react-loader-spinner'
+
 const ProfilePage = () => {
   const { userName } = useParams();
   const comments = useSelector((state) => state.user.comments);
   const age = useSelector((state) => state.user.age);
-  const loading = useSelector((state)=> state.store.loading)
+  const isLoading = useSelector((state)=> state.user.isLoading)
   const commentCount = useSelector((state) => state.user.commentCount);
   const gender = useSelector((state) => state.user.gender);
   const creationDate = useSelector((state)=>state.user.creationDate)
@@ -71,19 +72,26 @@ useEffect(()=>{
       return "";
     }
   }
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="loading-spinner">
-        <Spinner animation="border" role="status">
-          <span className="sr-only"></span>
-        </Spinner>
-        <h2>Loading...</h2>
+        <Bars
+          color="#18122B"
+          height="80"
+          width="80"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+        <h2 className="loading">Loading...</h2>
       </div>
     );
   }
   return (
     <div className="profile-container-div">
-      <NavBar />
+      {/* <NavBar /> */}
+      <Container>
       <div className="profile-container">
         <div className="profile-left">
           {renderGenderPicture()}
@@ -176,6 +184,7 @@ useEffect(()=>{
           containerClassName={"pagination-container"}
         />
       )}
+      </Container>
     </div>
   );
 };

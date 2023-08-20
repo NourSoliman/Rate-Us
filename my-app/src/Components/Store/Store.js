@@ -11,7 +11,7 @@ import {
 import Male from "../Images/Male.png";
 import Female from "../Images/Female.png";
 import CommentForm from "./CommentForm";
-import { NavLink , useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import DeleteConfirmation from "./DeleteConfirmation";
 import SolvedCaseConfirmation from "./SolvedCaseConfirmation";
 import Votes from "./Votes";
@@ -32,13 +32,14 @@ import { Edit, ThumbUpAlt, Delete } from "@mui/icons-material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import ReactPaginate from "react-paginate";
 import AOS from "aos";
+import { Bars } from 'react-loader-spinner'
 const Store = () => {
   const { storeId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comments = useSelector((state) => state.store.comments) || [];
   const loggedInUser = useSelector((state) => state.user.userName);
-  const loading = useSelector((state)=>state.store.loading)
+  const isLoading = useSelector((state) => state.store.isLoading)
   const storeComments = comments.filter((comment) => comment.store === storeId);
   const [editedCommentText, setEditedCommentText] = useState({});
   const [editCommentId, setEditCommentId] = useState(null);
@@ -57,15 +58,15 @@ const Store = () => {
     setCurrentPage(selectedPage.selected);
   };
   const token = Cookies.get(`token`);
-  const decodedToken = token ? jwt_decode(token): null
+  const decodedToken = token ? jwt_decode(token) : null
   const role = decodedToken ? decodedToken.role : null
   console.log(role, `from React Role`);
   useEffect(() => {
-    if(!token){
+    if (!token) {
       navigate(`/login`)
     }
     dispatch(fetchStore(storeId));
-  }, [dispatch, storeId , token , navigate ]);
+  }, [dispatch, storeId, token, navigate]);
 
   useEffect(() => {
     AOS.init({ duration: 800, offset: 200 });
@@ -157,7 +158,7 @@ const Store = () => {
       );
     }
   };
-  
+
 
   const handleCancelEdit = (commentId) => {
     setEditCommentId(null);
@@ -192,13 +193,19 @@ const Store = () => {
   // const handleLoadMoreComments = () => {
   //   setInitialCommentsToShow((prevCount) => prevCount + commentsToLoad);
   // };
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="loading-spinner">
-        <Spinner animation="border" role="status">
-          <span className="sr-only"></span>
-        </Spinner>
-        <h2>Loading...</h2>
+        <Bars
+          color="#18122B"
+          height="80"
+          width="80"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+        <h2 className="loading">Loading...</h2>
       </div>
     );
   }
@@ -248,7 +255,7 @@ const Store = () => {
                     <Grid item>
                       <Typography variant="h6">
                         <NavLink to={`/users/${comment.commenter.userName}/profile`}>
-                        {comment.commenter.userName}
+                          {comment.commenter.userName}
                         </NavLink>
                       </Typography>
                       <Typography variant="body2" color="textSecondary" className="commented-at">
@@ -333,7 +340,7 @@ const Store = () => {
                       </Button>
                     </div>
                   ) : (
-                    comment.status !== "Solved-Case" && (
+                    comment.status !== "Solved-Case" && comment.commenter.userName === loggedInUser && (
                       <Button
                         startIcon={<Edit />}
                         onClick={() => {
@@ -377,20 +384,20 @@ const Store = () => {
         </Grid>
       )}
       {comments.length > 3 && (
-      <ReactPaginate
-        pageCount={pageCount}
-        onPageChange={handlePageChange}
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        breakLabel={"..."}
-        breakClassName={"pagination-break"}
-        pageClassName={"pagination-page"}
-        previousClassName={"pagination-previous"}
-        nextClassName={"pagination-next"}
-        disabledClassName={"pagination-disabled"}
-        activeClassName={"pagination-active"}
-        containerClassName={"pagination-container"}
-      />
+        <ReactPaginate
+          pageCount={pageCount}
+          onPageChange={handlePageChange}
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          breakClassName={"pagination-break"}
+          pageClassName={"pagination-page"}
+          previousClassName={"pagination-previous"}
+          nextClassName={"pagination-next"}
+          disabledClassName={"pagination-disabled"}
+          activeClassName={"pagination-active"}
+          containerClassName={"pagination-container"}
+        />
       )}
       <DeleteConfirmation
         showConfirmation={showConfirmation}

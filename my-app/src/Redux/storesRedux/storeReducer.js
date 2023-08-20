@@ -21,66 +21,89 @@ import {
     DOWNVOTE_COMMENT_SUCCESS,
     FETCH_STORES_TYPES_SUCCESS,
     FETCH_STORES_TYPES_FAIL,
+    FETCH_STORE_FIRST,
+    FETCH_STORES_FIRST,
+    FETCH_STORES_TYPES_FIRST,
+    FETCH_COMMENTS_FIRST,
+    ADD_COMMENT_FIRST,
+    UPDATE_COMMENT_STATUS_FIRST,
+    FETCH_USER_COMMENT_FIRST,
+    FETCH_EDITED_COMMENTS_FIRST,
+    FETCH_DELETE_COMMENTS_FIRST,
 } from './types'
 const inistialState = {
     store: null,
     stores:[],
     comments: [],
     errors: null,
-    loading: true,
-    deleteLoading:true,
-    editLoading:true,
-    upLoading:true,
+    isLoading: false,
+    // deleteLoading:false,
+    // editLoading:false,
+    // upLoading:false,
 }
 const storeReducer = (state = inistialState, action) => {
     switch (action.type) {
+        case FETCH_STORE_FIRST:
+        case FETCH_STORES_FIRST:
+        case FETCH_STORES_TYPES_FIRST:
+        case FETCH_COMMENTS_FIRST:
+        case ADD_COMMENT_FIRST:
+        case UPDATE_COMMENT_STATUS_FIRST:
+        case FETCH_USER_COMMENT_FIRST:
+        case FETCH_EDITED_COMMENTS_FIRST:
+        case FETCH_DELETE_COMMENTS_FIRST:
+            return {
+                ...state,
+                isLoading:true,
+            }
         case FETCH_STORE_SUCCESS:
             return {
                 ...state,
                 store: action.payload,
                 error: null,
-                loading: false,
+                // isLoading: false,
+                
             }
         case FETCH_STORE_FAIL:
             return {
                 ...state,
                 store: null,
                 error: action.payload,
-                loading: false,
+                // isLoading: false,
             }
         case FETCH_COMMENTS_SUCCESS:
             return {
                 ...state,
                 comments: action.payload,
                 error: null,
-                loading: false,
+                isLoading: false,
             }
         case FETCH_COMMENTS_FAIL:
             return {
                 ...state,
                 comments: [],
                 error: action.payload,
-                loading: false,
+                isLoading: false,
             }
         case ADD_COMMENT_SUCCESS:
             return {
                 ...state,
                 comments: action.payload,
                 error: null,
-                loading: false,
+                isLoading: false,
             }
         case ADD_COMMENT_FAIL:
             return {
                 ...state,
                 comments: [],
                 error: action.payload,
-                loading: false,
+                isLoading: false,
             }
         case UPDATE_COMMENT_STATUS_SUCCESS:
             return {
                 ...state,
                 error: null,
-                loading: false,
+                isLoading: false,
             }
         case UPDATE_COMMENT_STATUS_FAIL:
             return {
@@ -92,56 +115,56 @@ const storeReducer = (state = inistialState, action) => {
                 ...state,
                 stores: action.payload,
                 error: null,
-                loading: false,
+                isLoading: false,
             };
         case FETCH_STORES_FAIL:
             return {
                 ...state,
                 stores: [],
                 error: action.payload,
-                loading: false,
+                isLoading: false,
             };
         case FETCH_USER_COMMENT_SUCCESS:
             return {
                 ...state,
                 comments: action.payload,
                 error: null,
-                loading: false,
+                isLoading: false,
             }
         case FETCH_USER_COMMENT_FAIL:
             return {
                 ...state,
                 comments: [],
                 error: action.payload,
-                loading: false,
+                isLoading: false,
             }
         case FETCH_EDITED_COMMENTS_SUCCESS:
             return {
                 ...state,
                 comments: action.payload,
                 error: null,
-                editLoading: false
+                isLoading: false
             }
         case FETCH_EDITED_COMMENTS_FAIL:
             return {
                 ...state,
                 comments: [],
                 error: action.payload,
-                editLoading: false,
+                isLoading: false,
             }
         case FETCH_DELETE_COMMENTS_SUCCESS:
             const updatedComments = state.comments.filter(comment => comment._id !== action.payload);
             return {
                 ...state,
                 comments:updatedComments,
-                deleteLoading:false,
+                isLoading:false,
                 error:null
             }
         case FETCH_DELETE_COMMENTS_FAIL:
             return{
                 ...state,
                 comments:[],
-                deleteLoading:false,
+                isLoading:false,
                 error:action.payload
             }
         case UPVOTE_COMMENT_SUCCESS:
@@ -169,14 +192,14 @@ const storeReducer = (state = inistialState, action) => {
                 return {
                     ...state,
                     errors:action.payload,
-                    upLoading:false,
+                    // upLoading:false,
                 }
             case FETCH_STORES_TYPES_SUCCESS:{
                 return {
                     ...state,
                     stores:action.payload,
                     error:null,
-                    loading: false,
+                    isLoading: false,
                 }
             }
             case FETCH_STORES_TYPES_FAIL:{
@@ -184,7 +207,7 @@ const storeReducer = (state = inistialState, action) => {
                     ...state,
                     stores:[],
                     error:action.payload,
-                    loading: false,
+                    isLoading: false,
                 }
             }
         default:

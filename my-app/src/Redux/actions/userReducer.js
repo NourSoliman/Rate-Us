@@ -8,7 +8,8 @@ import { REGISTER_SUCCESS, REGISTER_FAIL
     ADD_STORE_REQUEST,ADD_STORE_SUCCESS,
     ADD_STORE_FAIL,
     FETCH_PROFILE_COMMENTS_FAIL,
-    FETCH_PROFILE_COMMENTS_SUCCESS
+    FETCH_PROFILE_COMMENTS_SUCCESS,
+    FETCH_PROFILE_COMMENTS_FIRST
 } from './types';
     const storedUserName = localStorage.getItem('userName');
     // const storedRole = localStorage.getItem('role');
@@ -24,6 +25,7 @@ const inistialState={
     otp:``,
     loggedIn:false,
     loading:true,
+    isLoading:false,
     passwordLoading:false,
     passwordError:null,
     stores:[],
@@ -35,6 +37,12 @@ const inistialState={
 }
 const userReducer = (state = inistialState , action) =>{
     switch(action.type){
+    case FETCH_PROFILE_COMMENTS_FIRST:
+    case CHANGE_PASSWORD_REQUEST:
+        return {
+            ...state,
+            isLoading:true,
+        }
         case REGISTER_SUCCESS:
             return {
                 ...state,
@@ -103,20 +111,13 @@ const userReducer = (state = inistialState , action) =>{
                 loading:false,
                 error:action.payload
             }
-        case CHANGE_PASSWORD_REQUEST:
-            return{
-                ...state,
-                passwordLoading:true,
-                passwordError:null,
-                loading:false,
-            }
         case CHANGE_PASSWORD_SUCCESS:
             return{
                 ...state,
                 passwordLoading:false,
                 passwordError:null,
                 msg:action.payload,
-                loading:false,
+                isLoading:false,
             }
         case CHANGE_PASSWORD_FAIL:
             return {
@@ -124,7 +125,7 @@ const userReducer = (state = inistialState , action) =>{
                 passwordLoading:false,
                 passwordError:action.payload,
                 msg:null,
-                loading:false,
+                isLoading:false,
             }
         case ADD_STORE_REQUEST:
             return{
@@ -152,7 +153,8 @@ const userReducer = (state = inistialState , action) =>{
                 age:action.payload.age,
                 commentCount:action.payload.commentCount,
                 gender:action.payload.gender,
-                creationDate:action.payload.creationDate
+                creationDate:action.payload.creationDate,
+                isLoading:false,
             }
         case FETCH_PROFILE_COMMENTS_FAIL:
             return {
@@ -164,6 +166,7 @@ const userReducer = (state = inistialState , action) =>{
                 commentCount:null,
                 gender:null,
                 creationDate:null,
+                isLoading:false,
             }
         default:
             return state

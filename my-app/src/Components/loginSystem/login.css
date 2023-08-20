@@ -50,12 +50,13 @@
     height: 50vh;
     position: relative;
     z-index: 1;
-    top: 50px;
+    top: 30px;
   }
   .login-logo{
     width: 250px;
     position: relative;
     z-index: 1;
+    top: 0px;
   }
   .login-container .login-title {
     text-align: center;

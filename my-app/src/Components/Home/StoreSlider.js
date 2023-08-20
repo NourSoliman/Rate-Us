@@ -35,7 +35,7 @@ const StoreSlider = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -44,12 +44,13 @@ const StoreSlider = () => {
     centerPadding: '300px',
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 767,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1,
           adaptiveHeight: true,
           centerPadding:`20%`,
+
         },
       },
       {

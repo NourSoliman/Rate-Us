@@ -6,10 +6,10 @@
 .profile-container {
     display: flex;
     align-items: center;
-    background-color: var(--profile-container);
+    /* background-color: var(--profile-container); */
     color: var(--body-color);
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
     margin-top:20px
   }
   
@@ -36,7 +36,7 @@
     font-size: 15px;
   }
   .profile-comments {
-    background-color: var(--profile-container);
+    background-color: #635985;
     color: var(--body-color);
     margin-top: 7px;
     padding: 6px;

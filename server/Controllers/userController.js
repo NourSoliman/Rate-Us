@@ -255,6 +255,7 @@ async function login(req, res) {
       role: user.role,
       age: user.age,
     });
+    
   } catch (error) {
     return res.status(500).send({ error: error.message });
   }

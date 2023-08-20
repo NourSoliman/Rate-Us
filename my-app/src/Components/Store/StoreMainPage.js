@@ -4,23 +4,44 @@ import Store from './Store'
 import StoresSideBar from './StoresSideBar'
 import StoreDetails from './StoreDetails'
 import CommentsGraph from './CommentsGraph';
-import NavBar from '../Home/NavBar'
 import Cookies from 'js-cookie'
+import { Comment } from  'react-loader-spinner'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Footer from '../Home/Footer'
 const StoreMainPage = () => {
   const token = Cookies.get(`token`)
+  const isLoading = useSelector((state)=>state.store.isLoading)
+
   const navigate = useNavigate()
   useEffect(()=>{
     if(!token){
       navigate(`/login`)
     }
   },[token , navigate])
+  // if (isLoading) {
+  //   return (
+  //     <div className="loading-spinner">
+  //       <Comment 
+  //         visible={true}
+  //         height="80"
+  //         width="80"
+  //         ariaLabel="comment-loading"
+  //         wrapperStyle={{}}
+  //         wrapperClass="comment-wrapper"
+  //         color="#fff"
+  //         backgroundColor="#F4442E"
+  //       >
+  //         <span className="sr-only"></span>
+  //       </Comment>
+  //       <h2>Loading...</h2>
+  //     </div>
+  //   );
+  // }
   return (
     <div className="store-main-container ">
-      <Col lg={12}>
+      {/* <Col lg={12}>
       <NavBar />
-      </Col>
+      </Col> */}
     <Row className="row-container">
       <Row className='storeDetails-row'>
         <Col xs={12}>
@@ -36,9 +57,9 @@ const StoreMainPage = () => {
         <Col lg={5} md={6} xs={12} className="main-right-column">
         <CommentsGraph />
         </Col>
-        <Col lg={12}>
+        {/* <Col lg={12}>
           <Footer />
-        </Col>
+        </Col> */}
     </Row>
     </div>
   )

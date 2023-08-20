@@ -146,6 +146,7 @@ a{
     margin-bottom: 8px;
     color: var(--body-color);
     margin-top: 5px;
+    margin-top: 20px;
   }
   
   .storeDesc {
@@ -158,7 +159,7 @@ a{
   color: var(--body-color);
 }
 .loading{
-  color: var(--body-color);
+  color: #393053;
 }
   /***************************************************************/
   /*Comments Form*/
@@ -230,3 +231,27 @@ a{
   .commented-at {
     color: gray !important;
   }
+  .loading-spinner {
+    width: 100%;
+    height: 100%;   
+    background-color: #635985;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    z-index: 9999;
+  }
+  .filter-option-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+}
+.filter-option-container select {
+  padding: 5px;
+  font-family: var(--main-font);
+}
+.commentFormContainer{
+  margin-bottom: 20px;
+}

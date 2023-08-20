@@ -2,9 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter } from 'react-icons/fa';
 import './Footer.css';
-
+import {Container} from 'react-bootstrap';
 const Footer = () => {
   return (
+    <div className='footer-main'>
+    <Container>
     <footer className="footer">
       <div className="footer-left">
         <p>We would greatly appreciate your assistance in providing honest reviews for other stores on our website. Your feedback will help shoppers make informed decisions and contribute to a thriving community of users.</p>
@@ -18,8 +20,10 @@ const Footer = () => {
           <li className="twitter"><NavLink to="#"><FaTwitter /></NavLink></li>
         </ul>
       </div>
-    
     </footer>
+    
+    </Container>
+    </div>
   );
 };
 

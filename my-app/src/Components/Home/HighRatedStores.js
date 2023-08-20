@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllStores } from "../../Redux/storesRedux/storeAction";
-import { Col, Row ,Spinner } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { Bars } from 'react-loader-spinner'
+
 import './HighRated.css'
 const HighRatedStores = () => {
   const dispatch = useDispatch();
-  const { stores: fetchedStores , loading } = useSelector((state) => state.store);
+  const { stores: fetchedStores, isLoading } = useSelector((state) => state.store);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,13 +22,19 @@ const HighRatedStores = () => {
     fetchData();
   }, [dispatch]);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="loading-spinner">
-        <Spinner animation="border" role="status">
-          <span className="sr-only"></span>
-        </Spinner>
-        <h2>Loading...</h2>
+        <Bars
+          color="#18122B"
+          height="80"
+          width="80"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+        <h2 className="loading">Loading...</h2>
       </div>
     );
   }
@@ -39,7 +47,7 @@ const HighRatedStores = () => {
   });
 
   // Get the top 6 stores
-  const topStores = sortedStores.slice(0, 6);
+  const topStores = sortedStores.slice(0, 4);
 
   return (
     <div >
@@ -48,7 +56,7 @@ const HighRatedStores = () => {
         {topStores.map((store) => (
           <Col
             key={store._id}
-            lg={2}
+            lg={3}
             md={6}
             className="store-card"
             data-aos="fade-up"

@@ -7,7 +7,6 @@ import './FilterStores.css';
 import './media.css'
 import NavBar from '../Home/NavBar'
 import AOS from 'aos'
-import Footer from '../Home/Footer';
 const FilteredStores = () => {
   const dispatch = useDispatch();
   const { sellingTypes } = useParams();
@@ -38,12 +37,12 @@ const FilteredStores = () => {
   }
   return (
     <div className='filter-stores-main-div'>
-      <NavBar />
+      {/* <NavBar /> */}
     <Row className="store-row">
       <h2 className='comments-header'>Stores selling {sellingTypes}</h2>
-      <div className='filtered-stores-container' data-aos='fade-up'>
+      <Row className='filtered-stores-container' data-aos='fade-up'>
       {stores.map((store) => (
-        <Col key={store._id} lg={2.6}  md={6} className="store-card">
+        <Col key={store._id} lg={3}  md={6} className="store-card">
           <NavLink to={`/stores/${store._id}`}>
             {store.picture && (
               <div className="store-image">
@@ -72,8 +71,7 @@ const FilteredStores = () => {
               </div>
         </Col>
       ))}
-      </div>
-      <Footer />
+      </Row>
     </Row>
     </div>
   );

@@ -1,5 +1,5 @@
 footer {
-    background-color: var(--footer-background);
+    /* background-color: var(--footer-background); */
     color: var(--body-color);
     padding: 20px;
     display: flex;
@@ -56,7 +56,16 @@ footer {
   .footer-right {
     text-align: right;
   }
-  
+  .footer-main ,  .middle-nav-container{
+    /* background-color: var(--footer-background); */
+    border-top: 1px solid #443C68;
+  }
+  .stores-logo {
+    width: 170px;
+    height: 100px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
   @media (max-width: 768px) {
     .footer {
       flex-direction: column;

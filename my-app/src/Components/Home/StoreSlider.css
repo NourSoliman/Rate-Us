@@ -1,7 +1,7 @@
 .slider-images{
-    width: 150px;
+    width: 300px;
     height: 150px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 .slider-store-name{
     margin-left: 12px;
@@ -39,9 +39,9 @@
 
 @media screen and (max-width:767px){
     .slider-images{
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
+        /* width:300px;
+        height:150px; */
+        width: 100%;
     }
     .slider-store-name{
         font-size: 15px;

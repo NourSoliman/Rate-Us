@@ -1,4 +1,4 @@
-import {Routes , Route , HashRouter } from 'react-router-dom'
+import {Routes , Route  , BrowserRouter as Router , useLocation } from 'react-router-dom'
 import {useEffect } from 'react'
 import {useSelector  } from 'react-redux';
 import Login from './Components/loginSystem/Login'
@@ -20,7 +20,8 @@ import Verify from '../src/Components/loginSystem/VerifyEmailPage'
 import ProfilePage from './Components/loginSystem/ProfilePage';
 import Home from './Components/Home/Home'
 import 'aos/dist/aos.css'
-
+import NavBar from './Components/Home/NavBar';
+import MainFooter from './Components/Footer/MainFooter';
 function App() {
   const error = useSelector((state) => state.user.error);
   const passwordError = useSelector((state) => state.user.passwordError); 
@@ -38,10 +39,11 @@ function App() {
     }
   }, [error, msg  , passwordError]);
 
+
   return (
     <CookiesProvider>
-    <HashRouter>
-      {/* <NavBar /> */}
+    <Router>
+      <NavBarWrapper />
       {/* <DarkMode /> */}
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -55,12 +57,31 @@ function App() {
         <Route path='/allStores' element={<StoresPages />} />
         <Route path='/stores/selling/:sellingTypes' element={<FilteredStores />} />
         <Route exact path="/stores/:storeId" element={<StorePage />} />
+        {/* <Route exact path="/stores/:storeName" element={<StorePage />} /> */}
         <Route path="/users/:userName/profile" element={<ProfilePage />} />
         </Routes>
         <ToastContainer position="top-center"/>
-    </HashRouter>
+        <FooterWrapper />
+        </Router>
     </CookiesProvider>
   )
+}
+function FooterWrapper() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+  const isRegisterPage = location.pathname === '/register';
+  const excludeFooter = isLoginPage || isRegisterPage;
+
+  return !excludeFooter && <MainFooter />;
+}
+
+function NavBarWrapper() {
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+  const isRegisterPage = location.pathname === '/register';
+  const excludeFooter = isLoginPage || isRegisterPage;
+
+  return !excludeFooter && <NavBar />;
 }
 
 export default App;

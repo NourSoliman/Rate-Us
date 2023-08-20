@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,600;1,600&family=IBM+Plex+Sans+Arabic:wght@400;500&family=Poppins:ital,wght@1,600&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700;900&family=Rubik:wght@300;500&display=swap");
 .arabic {
-  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: var(--main-font);
   font-weight: 500;
 }
 .navBar-Container {
@@ -13,9 +13,12 @@
   margin-bottom: 5px;
   margin-right: 0 !important;
   margin-left: 0 !important;
+  font-family: var(--main-font);
 }
 .links-Container {
   display: flex;
+  font-family: var(--main-font);
+
 }
 .links-Container li {
   list-style: none;
@@ -33,12 +36,16 @@
 .logo {
   padding-top: 10px;
 }
-
+.logo-container{
+  display: flex;
+  justify-content: space-between;
+}
 .ul-sign {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
+  
 }
 .ul-sign li {
     text-decoration: none !important;
@@ -56,6 +63,17 @@
 }
 .nav-dark{
   display: none;
+}
+.nav-col{
+  display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* margin-left: 77px; */
+}
+.all-stores-button.custom-button {
+  font-size: 15px;
+  font-family: var(--main-font);
+  color: white !important;
 }
 /***************************************************************************************************/
 /*Media query*/

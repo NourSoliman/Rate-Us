@@ -17,6 +17,8 @@ import {
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import ReactPaginate from "react-paginate";
+import { Bars } from 'react-loader-spinner'
+
 const DashBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const DashBoard = () => {
   const decodedToken = token ? jwt_decode(token) : null;
   const role = decodedToken ? decodedToken.role : null;
   const email = decodedToken ? decodedToken.email : null;
-  const age = decodedToken? decodedToken.age : null;
+  const age = decodedToken ? decodedToken.age : null;
 
   useEffect(() => {
     if (!token) {
@@ -88,16 +90,16 @@ const DashBoard = () => {
     );
   }
 
-/*Show more*/
-const handleToggleComment = (commentId) => {
-  setExpandedComments((prevExpandedComments) => {
-    if (prevExpandedComments.includes(commentId)) {
-      return prevExpandedComments.filter((id) => id !== commentId);
-    } else {
-      return [...prevExpandedComments, commentId];
-    }
-  });
-}; 
+  /*Show more*/
+  const handleToggleComment = (commentId) => {
+    setExpandedComments((prevExpandedComments) => {
+      if (prevExpandedComments.includes(commentId)) {
+        return prevExpandedComments.filter((id) => id !== commentId);
+      } else {
+        return [...prevExpandedComments, commentId];
+      }
+    });
+  };
   //Render comments
   const renderCommentText = (comment) => {
     if (comment.commentText.length > 100) {
@@ -142,13 +144,13 @@ const handleToggleComment = (commentId) => {
   const pageCount = Math.ceil(comments.length / commentsPerPage);
   const startIndex = currentPage * commentsPerPage;
   const endIndex = startIndex + commentsPerPage;
-  const visibleComments = comments.slice(startIndex , endIndex)
-  
+  const visibleComments = comments.slice(startIndex, endIndex)
+
   ///React Paginate
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
   };
-  
+
   return (
     <Row className="dashboard-Container">
       {user && profileDetails && (
@@ -244,38 +246,38 @@ const handleToggleComment = (commentId) => {
                     {renderCommentText(comment)}
                   </div>
                   {comment.commentText.length > 100 && !comment.showMore && (
-                  <div>
-                    <Button onClick={() => handleToggleComment(comment._id)}>
-                      {expandedComments.includes(comment._id)
-                        ? "Show Less"
-                        : "Show More"}
-                    </Button>
-                  </div>
-                )}
+                    <div>
+                      <Button onClick={() => handleToggleComment(comment._id)}>
+                        {expandedComments.includes(comment._id)
+                          ? "Show Less"
+                          : "Show More"}
+                      </Button>
+                    </div>
+                  )}
                   <div>
                     {comment.links ? (
                       <div>
                         <span className="comment-links">Links:</span>{" "}
                         <NavLink to={comment.links} target="_blank" className="dashboard-comments-link">
-                        {comment.links}
+                          {comment.links}
                         </NavLink>
-                        </div>
-                    ):``}
+                      </div>
+                    ) : ``}
                   </div>
                   {comment.store ? (
                     <div>
                       <span className="comments-store-name">Store Name:</span>
-                    <NavLink to={`/stores/${comment.store._id}`}>
-                      <span className="commentStoreName">
-                        {comment.store.name}
-                      </span>
-                    </NavLink>
+                      <NavLink to={`/stores/${comment.store._id}`}>
+                        <span className="commentStoreName">
+                          {comment.store.name}
+                        </span>
+                      </NavLink>
                     </div>
                   ) : (
                     <div>
                       <span className="comments-store-name">Store Name:</span>
                       <span className="deleted">This store has been deleted</span>
-                      </div>
+                    </div>
                   )}{" "}
                   <div
                     className={`storeComment-status ${getStatusColor(
@@ -286,36 +288,47 @@ const handleToggleComment = (commentId) => {
                     {comment.status}
                   </div>{" "}
                   <div className="commented-at-dashboard">
-                  Commented At:{" "}
-                        {new Date(comment.commentedAt).toLocaleDateString(
-                          "en-US",
-                          { day: "numeric", month: "short" }
-                        )}
+                    Commented At:{" "}
+                    {new Date(comment.commentedAt).toLocaleDateString(
+                      "en-US",
+                      { day: "numeric", month: "short" }
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <h2 className="no-comments-h2">No Comments Yet...</h2>
+            <div className="loading-spinner">
+              <Bars
+                color="#18122B"
+                height="80"
+                width="80"
+                ariaLabel="bars-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+              <h2 className="loading">Loading...</h2>
+            </div>
           )}
-      {comments.length > 6 && (
-      <ReactPaginate
-        pageCount={pageCount}
-        onPageChange={handlePageChange}
-        previousLabel={"Previous"}
-        nextLabel={"Next"}
-        breakLabel={"..."}
-        breakClassName={"pagination-break"}
-        pageClassName={"pagination-page"}
-        previousClassName={"pagination-previous"}
-        nextClassName={"pagination-next"}
-        disabledClassName={"pagination-disabled"}
-        activeClassName={"pagination-active"}
-        marginPagesDisplayed={0}
-        pageRangeDisplayed={3}
-        containerClassName="pagination-container"
-      />
-      )}
+          {comments.length > 6 && (
+            <ReactPaginate
+              pageCount={pageCount}
+              onPageChange={handlePageChange}
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              breakLabel={"..."}
+              breakClassName={"pagination-break"}
+              pageClassName={"pagination-page"}
+              previousClassName={"pagination-previous"}
+              nextClassName={"pagination-next"}
+              disabledClassName={"pagination-disabled"}
+              activeClassName={"pagination-active"}
+              marginPagesDisplayed={0}
+              pageRangeDisplayed={3}
+              containerClassName="pagination-container"
+            />
+          )}
         </div>
       )}
     </Row>

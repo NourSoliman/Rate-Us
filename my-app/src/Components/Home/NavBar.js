@@ -12,15 +12,17 @@ import Logout from "../loginSystem/Logout";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import DarkMode from "../light-dark/DarkMode";
+import { Container , Row , Col } from "react-bootstrap";
 import "./Navbar.css";
 const NavBar = () => {
   const { userName } = useSelector((state) => state.user);
   const [closeMenu, setCloseMenu] = useState(null);
   const [profileMenuOpen, setProfileMenuOpen] = useState(null);
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+
   //token
   const token = Cookies.get(`token`);
-  console.log(`from navbar` , token);
   const decodedToken = token ? jwt_decode(token) : null;
   const gender = decodedToken ? decodedToken.gender : null;
   //handle close menu
@@ -44,11 +46,15 @@ const NavBar = () => {
   };
   return (
     <div className="navBar-Container">
+      <Container>
+      <Row>
       <div className="logo-container">
+      <Col lg="3" sm={5}>
         <NavLink to="/">
         <img src={Logo} alt="LogoName" className="logo"/>
         </NavLink>
-      </div>
+      </Col>
+      <Col lg="8" className="nav-col" sm={5}>
       <ul className="links-Container">
         {!token && (
           <ul className="ul-sign">
@@ -75,7 +81,7 @@ const NavBar = () => {
             <li className="nav-dark">
               <DarkMode />
             </li>
-            <li className="stores-li">
+            {/* <li className="stores-li">
               <Button onClick={handleOpenMenu}>Store Categories</Button>
               <Menu
                 anchorEl={closeMenu}
@@ -93,7 +99,7 @@ const NavBar = () => {
                   <NavLink to={`/stores/selling/Books`}>Books</NavLink>
                 </MenuItem>
               </Menu>
-            </li>
+            </li> */}
             <li>
               <Button onClick={handleOpenProfileMenu}>
                 {gender === "male" ? (
@@ -109,12 +115,14 @@ const NavBar = () => {
               >
                 <MenuItem className="custom-menu-item">
                   <NavLink to={`/DashBoard/${userName}`}>
-                    <Button color="inherit" startIcon={<Dashboard />}>
+                    <Button color="inherit" startIcon={<Dashboard />}
+                    onClick={handleCloseProfileMenu}
+                    >
                       Dashboard
                     </Button>
                   </NavLink>
                 </MenuItem>
-                <MenuItem>
+                <MenuItem >
                 <DarkMode />
                 </MenuItem>
                 <MenuItem>
@@ -125,6 +133,10 @@ const NavBar = () => {
           </>
         )}
       </ul>
+      </Col>
+      </div>
+      </Row>
+      </Container>
     </div>
   );
 };

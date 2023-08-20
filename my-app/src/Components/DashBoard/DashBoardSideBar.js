@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { AccountCircle, Chat } from '@mui/icons-material';
-import { DASHBOARD_PROFILE_DETAILS, DASHBOARD_COMMENTS } from '../../Redux/dashboardRedux/Types';
+import { DASHBOARD_PROFILE_DETAILS, DASHBOARD_COMMENTS , DASHBOARD_COMMENTS_FIRST } from '../../Redux/dashboardRedux/Types';
 import './dashboard.css';
 import './dashboardMedia.css'
 

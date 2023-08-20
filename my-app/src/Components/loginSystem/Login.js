@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 import DarkMode from "../light-dark/DarkMode";
 import Logo from "../Images/Logo4.png";
-import { Spinner } from "react-bootstrap";
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +17,7 @@ const Login = () => {
     const token = Cookies.get(`token`);
     if (loggedIn || token) {
       navigate(`/`);
+      window.location.reload()
     }
   }, [loggedIn, navigate]);
 
@@ -32,7 +32,7 @@ const Login = () => {
       if (response && response.token) {
         const token = response.token;
         Cookies.set(`token`, token, { expires: 1 });
-        console.log(token);
+        navigate(`/`)
       }
     } catch (error) {
       console.log(error);

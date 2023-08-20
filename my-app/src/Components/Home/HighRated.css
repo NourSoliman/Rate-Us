@@ -1,6 +1,7 @@
 .store-grid{
-    gap: 25px !important;
+    gap: 5px !important;
     margin-left:20px !important;
+    margin-bottom: 30px;
 }
 .famous-stores{
     color: var(--body-color);
@@ -9,9 +10,7 @@
     margin-top: 30px;
     font-size: 40px;
 }
-.store-grid {
-    margin-bottom: 30px;
-}
+
 .row {
     margin-right: 0 !important;
     margin-left: 0 !important;

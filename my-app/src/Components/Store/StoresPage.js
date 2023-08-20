@@ -2,19 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllStores } from '../../Redux/storesRedux/storeAction';
-import Footer from '../Home/Footer';
-import { Col, Row , Spinner } from 'react-bootstrap';
+import Footer from '../Footer/Footer';
+import { Col, Row  , Container } from 'react-bootstrap';
 import './FilterStores.css'
 import './media.css'
-import NavBar from '../Home/NavBar';
 import AOS from 'aos'
+import { fetchStoreTypes } from '../../Redux/storesRedux/storeAction';
+import { Bars } from  'react-loader-spinner'
+
 const StoresPage = () => {
     const dispatch = useDispatch();
     const [stores, setStores] = useState([]);
+    const [selectedTypes , setSelectedTypes] = useState(``)
     const [searchQuery, setSearchQuery] = useState(``)
     const { stores: fetchedStores } = useSelector((state) => state.store);
-    const loading = useSelector((state)=>state.store.loading)
-    console.log(stores);
+    const isLoading = useSelector((state)=>state.store.isLoading)
     useEffect(() => {
         dispatch(fetchAllStores());
     }, [dispatch]);
@@ -38,27 +40,61 @@ const StoresPage = () => {
     const filteredStores = stores.filter((store) => {
         return store.name.toLowerCase().includes(searchQuery.toLowerCase())
     })
-    if (loading) {
+    const handleFilterByType = (sellingType) => {
+      dispatch(fetchStoreTypes(sellingType))
+      setSelectedTypes(sellingType)
+    }
+
+    if (isLoading) {
       return (
         <div className="loading-spinner">
-          <Spinner animation="border" role="status">
-            <span className="sr-only"></span>
-          </Spinner>
-          <h2 className='loading'>Loading...</h2>
+        <Bars
+          color="#18122B"
+          height="80"
+          width="80"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+          <h2 className="loading">Loading...</h2>
         </div>
       );
     }
     return (
         <div className='wrapper'>
-            <NavBar />
+          <Container>
+            {/* <NavBar /> */}
+            <div className='filter-option-container'>
+            <select onChange={(e) => handleFilterByType(e.target.value)} value={selectedTypes}>
+            <option value="" disabled>
+            Filter
+          </option> 
+              <option
+              value="Clothes"
+              >
+              Clothes
+              </option>
+              <option
+              value="Socks"
+              >
+              Socks
+              </option>
+              <option
+              value="Furniture"
+              >
+              Furniture
+              </option>
+            </select>
+            </div>
             <Row className="store-row">
             {/* <StoresTypes /> */}
             <Col className="search-bar-container" lg={12}>
             <input type="text" placeholder='Search' value={searchQuery} onChange={handleSearch} className="search-bar"></input>
             </Col>
-            <div className="filtered-stores-div">
+            <Row className="filtered-stores-div">
             {filteredStores.map((store) => (
-            <Col key={store._id} lg={2}  md={6} className="store-card" data-aos='fade-up'>
+            <Col key={store._id} lg={4}  md={6} className="store-card" data-aos='fade-up'>
             <NavLink to={`/stores/${store._id}`}>
             {store.picture && (
             <div className="store-image">
@@ -86,9 +122,9 @@ const StoresPage = () => {
             </div>
       </Col>
             ))}
-            </div>
+            </Row>
         </Row>
-        <Footer />
+        </Container>
         </div>
     );
 };
