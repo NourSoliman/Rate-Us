@@ -12,7 +12,7 @@ const Footer = () => {
         <p>We would greatly appreciate your assistance in providing honest reviews for other stores on our website. Your feedback will help shoppers make informed decisions and contribute to a thriving community of users.</p>
       </div>
       <div className="footer-right">
-        <p>&copy; {new Date().getFullYear()} صوت المستهلك. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} صوت المستهلك. All rights reserved</p>
       </div>
       <div className="footer-middle">
         <ul className="social-media-icons">
