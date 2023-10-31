@@ -86,9 +86,10 @@ const storeReducer = (state = inistialState, action) => {
                 isLoading: false,
             }
         case ADD_COMMENT_SUCCESS:
+
             return {
                 ...state,
-                comments: action.payload,
+                comments: [...state.comments , action.payload],
                 error: null,
                 isLoading: false,
             }
@@ -172,20 +173,20 @@ const storeReducer = (state = inistialState, action) => {
             //first way
             const updatedVotesComments = action.payload
             // const commentIndex = state.comments.findIndex(comment=>comment._id===updatedVotesComments._id)
-                  // Create a new comments array with the updated comment at the appropriate index
-                // const updatedvotesComments = [...state.comments];
-                // updatedvotesComments[commentIndex] = updatedVotesComments;
+                //   Create a new comments array with the updated comment at the appropriate index
+            //     const updatedvotesComments = [...state.comments];
+            //     updatedvotesComments[commentIndex] = updatedVotesComments;
             // return{
             //     ...state,
             //     comments:updatedVotesComments,
             //     errors:null
             // }
             //2nd one
+
             return {
             ...state,
             comments:state.comments.map(comment=> comment.id === updatedVotesComments._id ? updatedVotesComments : comment),
             errors: null,
-
             }
             case UPVOTE_COMMENT_FAIL:
             case DOWNVOTE_COMMENT_FAIL:

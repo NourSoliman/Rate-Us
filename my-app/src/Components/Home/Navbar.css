@@ -73,7 +73,7 @@
 .all-stores-button.custom-button {
   font-size: 15px;
   font-family: var(--main-font);
-  color: white !important;
+  color: black !important;
 }
 /***************************************************************************************************/
 /*Media query*/

@@ -44,6 +44,7 @@ const getBearerToken = () => {
 export const fetchStore = (storeId, filterStatus) => {
   return async (dispatch) => {
     try {
+      dispatch({type:FETCH_STORE_FIRST})
       dispatch({type:FETCH_COMMENTS_FIRST})
       const token = getBearerToken();
       //Render.com
@@ -97,7 +98,7 @@ export const addComment = (storeId, newComment) => {
       const userName = decodedToken.userName;
       newComment.commenter = userName;
       //RENDER
-      dispatch({type:ADD_COMMENT_FIRST})
+      // dispatch({type:ADD_COMMENT_FIRST})
       await axios.post(
         `${localHost}/stores/${storeId}/comments`,
         newComment,
@@ -169,6 +170,7 @@ export const fetchStores = () => {
   return async (dispatch) => {
     try {
       const token = getBearerToken();
+      // await dispatch({type:FETCH_COMMENTS_FIRST})
       dispatch({type:FETCH_STORE_FIRST})
       //Render
       const response = await fetch(`${localHost}/stores`, {
@@ -342,6 +344,7 @@ export const fetchUpVotes = (commentId) => {
         }
       );
       const updatedComments = response.data.comment;
+      console.log(updatedComments , `updated comments`)
       dispatch({
         type: UPVOTE_COMMENT_SUCCESS,
         payload: updatedComments,
@@ -386,7 +389,6 @@ export const fetchStoreTypes = (sellingTypes) => {
   return async (dispatch) => {
     try {
       const token = getBearerToken();
-      dispatch({type:FETCH_STORES_TYPES_FIRST})
       //RENDER.Com
       const response = await fetch(
         `${localHost}/stores/selling/${sellingTypes}`,

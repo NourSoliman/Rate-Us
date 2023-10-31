@@ -28,7 +28,6 @@ function ChangePasswordForm() {
       }
   return (
     <div>
-      <NavBar />
     <div className='change-password-form'>
         <label className='form-label'>Current Password</label>
         <input type="password" placeholder='Current Password' value={oldPassword} onChange={(e)=> setOldPassword(e.target.value)} className='form-input'></input>
