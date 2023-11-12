@@ -35,7 +35,9 @@ import {
   FETCH_DELETE_COMMENTS_FIRST,
 } from "./types";
 // const localHost = `http://localhost:1997/api`
-const localHost=`https://rate-us.onrender.com/api`
+// const localHost=`https://rate-us.onrender.com/api`
+    //vercel
+    const localHost="https://rate-us-x53q-72dtqnnd2-noursoliman.vercel.app/api"
 //Get the token from cookies
 const getBearerToken = () => {
   const token = Cookies.get(`token`);
