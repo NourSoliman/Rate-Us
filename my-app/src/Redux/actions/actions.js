@@ -14,7 +14,7 @@ import {
     // const localHost = `http://localhost:1997/api`
     // const localHost=`https://rate-us.onrender.com/api`
     //vercel
-    const localHost="https://rate-us-x53q-p7sxpa7tx-noursoliman.vercel.app/api"
+    const localHost="https://rate-us-x53q.vercel.app/api"
 //GET TOKEN FROM COOKIES
 const getBearerToken = () => {
     const token = Cookies.get(`token`)
